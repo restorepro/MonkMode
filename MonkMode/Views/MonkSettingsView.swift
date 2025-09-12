@@ -9,11 +9,22 @@ import SwiftUI
 
 struct MonkSettingsView: View {
     @ObservedObject var vm: MonkViewModel
+    @EnvironmentObject var themeManager: ThemeManager   // ✅ add theme manager
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationStack {
             Form {
+                // ✅ New Appearance Section
+                Section("Appearance") {
+                    Picker("Theme", selection: $themeManager.selectedTheme) {
+                        ForEach(AppTheme.allCases) { theme in
+                            Text(theme.rawValue.capitalized).tag(theme)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+
                 Section("Timing") {
                     Stepper("Question Duration: \(vm.settings.questionDuration)s",
                             value: $vm.settings.questionDuration,

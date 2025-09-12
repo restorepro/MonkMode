@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppRootView: View {
     @EnvironmentObject var vm: MonkViewModel
+    @EnvironmentObject var themeManager: ThemeManager   // ✅ add theme manager
     @State private var showMusicOverlay = false
     @State private var showTimerOverlay = false
 
@@ -16,14 +17,18 @@ struct AppRootView: View {
         NavigationStack {
             HomeView()
                 .environmentObject(vm)
+                .environmentObject(themeManager)   // ✅ pass down
                 .overlay(floatingButtons, alignment: .bottomTrailing)
         }
         .sheet(isPresented: $showMusicOverlay) {
             MusicOverlayView()
+                .environmentObject(themeManager)   // ✅ pass down
         }
         .sheet(isPresented: $showTimerOverlay) {
-            TimerOverlayView(vm: vm)   // pass VM for live session data
+            TimerOverlayView(vm: vm)
+                .environmentObject(themeManager)   // ✅ pass down
         }
+        .appBackground(theme: themeManager)        // ✅ apply global background
     }
 
     private var floatingButtons: some View {

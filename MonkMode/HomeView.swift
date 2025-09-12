@@ -9,7 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var vm: MonkViewModel
-    @State private var showSettings = false   // ✅ add sheet toggle
+    @EnvironmentObject var themeManager: ThemeManager   // ✅ add theme manager
+    @State private var showSettings = false
 
     var body: some View {
         NavigationStack {
@@ -30,13 +31,17 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showSettings) {
                 MonkSettingsView(vm: vm)
+                    .environmentObject(themeManager)   // ✅ pass theme manager down
             }
         }
+        .appBackground(theme: themeManager)   // ✅ apply background globally
     }
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Welcome back 👋").font(.title).bold()
+            Text("Welcome back 👋")
+                .font(.title)
+                .bold()
             Text("Choose a mode to get started.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
@@ -49,7 +54,6 @@ struct HomeView: View {
                 MonkView(vm: vm)
             } label: {
                 ActionCard(title: "🧘 Monk Mode", icon: "person.sitting")
-
             }
         }
     }

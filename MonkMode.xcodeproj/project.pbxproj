@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		894E66962E7434FB00B8C36A /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66952E7434FB00B8C36A /* AppTheme.swift */; };
+		894E66982E74352500B8C36A /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66972E74352500B8C36A /* ThemeManager.swift */; };
+		894E669A2E74354600B8C36A /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66992E74354600B8C36A /* AppColors.swift */; };
+		894E669C2E74356900B8C36A /* AppGradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E669B2E74356900B8C36A /* AppGradients.swift */; };
+		894E669F2E7435BE00B8C36A /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E669E2E7435BE00B8C36A /* View.swift */; };
+		894E66A12E7435DF00B8C36A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66A02E7435DF00B8C36A /* SettingsView.swift */; };
 		897DF6362E7392FD00E98004 /* MonkModeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6352E7392FD00E98004 /* MonkModeApp.swift */; };
 		897DF6382E7392FD00E98004 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6372E7392FD00E98004 /* ContentView.swift */; };
 		897DF63A2E73930100E98004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 897DF6392E73930100E98004 /* Assets.xcassets */; };
@@ -27,7 +33,6 @@
 		897DF6642E739A6800E98004 /* MonkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6632E739A6800E98004 /* MonkViewModel.swift */; };
 		897DF6662E739A8800E98004 /* FlashcardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6652E739A8800E98004 /* FlashcardViewModel.swift */; };
 		897DF6682E739A9900E98004 /* ReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6672E739A9900E98004 /* ReaderViewModel.swift */; };
-		897DF66A2E739AAA00E98004 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6692E739AAA00E98004 /* SessionViewModel.swift */; };
 		897DF66C2E739E9900E98004 /* MonkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF66B2E739E9900E98004 /* MonkSettings.swift */; };
 		897DF66E2E73AA9700E98004 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF66D2E73AA9700E98004 /* HomeView.swift */; };
 		897DF6702E73ABB900E98004 /* ActionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF66F2E73ABB900E98004 /* ActionCard.swift */; };
@@ -37,9 +42,19 @@
 		897DF6782E73B1FE00E98004 /* TimerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6772E73B1FE00E98004 /* TimerOverlayView.swift */; };
 		897DF67B2E73B47500E98004 /* flashcards.json in Resources */ = {isa = PBXBuildFile; fileRef = 897DF6792E73B47500E98004 /* flashcards.json */; };
 		897DF67C2E73B47500E98004 /* sessionLogs.json in Resources */ = {isa = PBXBuildFile; fileRef = 897DF67A2E73B47500E98004 /* sessionLogs.json */; };
+		897DF67E2E73B96400E98004 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF67D2E73B96400E98004 /* AudioService.swift */; };
+		897DF6802E73B97E00E98004 /* TTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF67F2E73B97E00E98004 /* TTSService.swift */; };
+		897DF6822E73B9D400E98004 /* SessionTimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6812E73B9D400E98004 /* SessionTimerViewModel.swift */; };
+		897DF6842E73BAC700E98004 /* SpeechReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6832E73BAC700E98004 /* SpeechReaderViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		894E66952E7434FB00B8C36A /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		894E66972E74352500B8C36A /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		894E66992E74354600B8C36A /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		894E669B2E74356900B8C36A /* AppGradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGradients.swift; sourceTree = "<group>"; };
+		894E669E2E7435BE00B8C36A /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		894E66A02E7435DF00B8C36A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		897DF6322E7392FD00E98004 /* MonkMode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonkMode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		897DF6352E7392FD00E98004 /* MonkModeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkModeApp.swift; sourceTree = "<group>"; };
 		897DF6372E7392FD00E98004 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,7 +77,6 @@
 		897DF6632E739A6800E98004 /* MonkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkViewModel.swift; sourceTree = "<group>"; };
 		897DF6652E739A8800E98004 /* FlashcardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardViewModel.swift; sourceTree = "<group>"; };
 		897DF6672E739A9900E98004 /* ReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewModel.swift; sourceTree = "<group>"; };
-		897DF6692E739AAA00E98004 /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		897DF66B2E739E9900E98004 /* MonkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkSettings.swift; sourceTree = "<group>"; };
 		897DF66D2E73AA9700E98004 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		897DF66F2E73ABB900E98004 /* ActionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCard.swift; sourceTree = "<group>"; };
@@ -72,6 +86,10 @@
 		897DF6772E73B1FE00E98004 /* TimerOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerOverlayView.swift; sourceTree = "<group>"; };
 		897DF6792E73B47500E98004 /* flashcards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = flashcards.json; sourceTree = "<group>"; };
 		897DF67A2E73B47500E98004 /* sessionLogs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sessionLogs.json; sourceTree = "<group>"; };
+		897DF67D2E73B96400E98004 /* AudioService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
+		897DF67F2E73B97E00E98004 /* TTSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSService.swift; sourceTree = "<group>"; };
+		897DF6812E73B9D400E98004 /* SessionTimerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTimerViewModel.swift; sourceTree = "<group>"; };
+		897DF6832E73BAC700E98004 /* SpeechReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechReaderViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +103,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		894E669D2E74358F00B8C36A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				894E669E2E7435BE00B8C36A /* View.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		897DF6292E7392FD00E98004 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +130,7 @@
 		897DF6342E7392FD00E98004 /* MonkMode */ = {
 			isa = PBXGroup;
 			children = (
+				894E669D2E74358F00B8C36A /* Extensions */,
 				897DF6622E739A1D00E98004 /* ViewModels */,
 				897DF65F2E73984700E98004 /* Resources */,
 				897DF6582E7397FA00E98004 /* Views */,
@@ -134,6 +161,7 @@
 				897DF6482E7394AD00E98004 /* StudySession.swift */,
 				897DF6542E7397B300E98004 /* Flashcard.swift */,
 				897DF66B2E739E9900E98004 /* MonkSettings.swift */,
+				894E66952E7434FB00B8C36A /* AppTheme.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -141,6 +169,8 @@
 		897DF6452E73946B00E98004 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				897DF67F2E73B97E00E98004 /* TTSService.swift */,
+				897DF67D2E73B96400E98004 /* AudioService.swift */,
 				897DF64A2E7394CF00E98004 /* FileService.swift */,
 				897DF64C2E7394EE00E98004 /* ReaderService.swift */,
 				897DF64E2E73952000E98004 /* SessionService.swift */,
@@ -162,6 +192,7 @@
 				897DF6732E73B1C900E98004 /* FloatingHubButton.swift */,
 				897DF6752E73B1E900E98004 /* MusicOverlayView.swift */,
 				897DF6772E73B1FE00E98004 /* TimerOverlayView.swift */,
+				894E66A02E7435DF00B8C36A /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -172,6 +203,8 @@
 				897DF6792E73B47500E98004 /* flashcards.json */,
 				897DF67A2E73B47500E98004 /* sessionLogs.json */,
 				897DF6602E73988800E98004 /* MonkSeed.json */,
+				894E66992E74354600B8C36A /* AppColors.swift */,
+				894E669B2E74356900B8C36A /* AppGradients.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -179,10 +212,12 @@
 		897DF6622E739A1D00E98004 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				897DF6812E73B9D400E98004 /* SessionTimerViewModel.swift */,
 				897DF6632E739A6800E98004 /* MonkViewModel.swift */,
 				897DF6652E739A8800E98004 /* FlashcardViewModel.swift */,
 				897DF6672E739A9900E98004 /* ReaderViewModel.swift */,
-				897DF6692E739AAA00E98004 /* SessionViewModel.swift */,
+				897DF6832E73BAC700E98004 /* SpeechReaderViewModel.swift */,
+				894E66972E74352500B8C36A /* ThemeManager.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -261,24 +296,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				897DF65E2E73983E00E98004 /* SessionsLogView.swift in Sources */,
-				897DF66A2E739AAA00E98004 /* SessionViewModel.swift in Sources */,
+				897DF6842E73BAC700E98004 /* SpeechReaderViewModel.swift in Sources */,
 				897DF6702E73ABB900E98004 /* ActionCard.swift in Sources */,
+				894E669A2E74354600B8C36A /* AppColors.swift in Sources */,
 				897DF6572E7397D400E98004 /* FlashcardService.swift in Sources */,
+				894E66A12E7435DF00B8C36A /* SettingsView.swift in Sources */,
+				894E66962E7434FB00B8C36A /* AppTheme.swift in Sources */,
 				897DF6382E7392FD00E98004 /* ContentView.swift in Sources */,
 				897DF6642E739A6800E98004 /* MonkViewModel.swift in Sources */,
 				897DF6682E739A9900E98004 /* ReaderViewModel.swift in Sources */,
 				897DF6782E73B1FE00E98004 /* TimerOverlayView.swift in Sources */,
+				897DF6802E73B97E00E98004 /* TTSService.swift in Sources */,
+				897DF67E2E73B96400E98004 /* AudioService.swift in Sources */,
 				897DF6362E7392FD00E98004 /* MonkModeApp.swift in Sources */,
 				897DF6532E7395B500E98004 /* TokenStore.swift in Sources */,
 				897DF65C2E73982700E98004 /* MonkSettingsView.swift in Sources */,
+				894E669C2E74356900B8C36A /* AppGradients.swift in Sources */,
 				897DF6662E739A8800E98004 /* FlashcardViewModel.swift in Sources */,
 				897DF66C2E739E9900E98004 /* MonkSettings.swift in Sources */,
 				897DF64F2E73952000E98004 /* SessionService.swift in Sources */,
+				894E66982E74352500B8C36A /* ThemeManager.swift in Sources */,
+				894E669F2E7435BE00B8C36A /* View.swift in Sources */,
 				897DF65A2E73981400E98004 /* MonkView.swift in Sources */,
 				897DF6722E73B11100E98004 /* AppRootView.swift in Sources */,
 				897DF66E2E73AA9700E98004 /* HomeView.swift in Sources */,
 				897DF64D2E7394EE00E98004 /* ReaderService.swift in Sources */,
 				897DF6492E7394AD00E98004 /* StudySession.swift in Sources */,
+				897DF6822E73B9D400E98004 /* SessionTimerViewModel.swift in Sources */,
 				897DF6552E7397B300E98004 /* Flashcard.swift in Sources */,
 				897DF6512E73954200E98004 /* AIService.swift in Sources */,
 				897DF64B2E7394CF00E98004 /* FileService.swift in Sources */,
