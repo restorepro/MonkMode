@@ -48,7 +48,8 @@ struct HomeView: View {
             NavigationLink {
                 MonkView(vm: vm)
             } label: {
-                ActionCard(title: "🧘 Monk Mode", icon: "figure.meditation")
+                ActionCard(title: "🧘 Monk Mode", icon: "person.sitting")
+
             }
         }
     }
