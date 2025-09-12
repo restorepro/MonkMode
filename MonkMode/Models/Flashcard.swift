@@ -12,25 +12,23 @@ struct Flashcard: Identifiable, Codable, Equatable {
     var question: String
     var answer: String
 
-    // Card type
-    var type: FlashcardType = .standard
+    // ✅ Make type optional, default = .standard
+    var type: FlashcardType? = .standard
 
-    // Optional fields
-    var choices: [String]?      // Multiple choice options
-    var correctIndex: Int?      // Index of correct choice
-    var isFillInTheBlank: Bool? // Mark if it’s fill-in style
+    var choices: [String]? = nil
+    var correctIndex: Int? = nil
 
     var course: String?
     var chapter: String?
-    var easeFactor: Int?        // Spaced repetition
+    var easeFactor: Int?
     var intervalDays: Int?
     var repetitions: Int?
     var nextReview: TimeInterval?
     var imageUrl: String?
     var additionalInfo: String?
-
     var bookmarkedSentences: [String]? = []
 }
+
 
 enum FlashcardType: String, Codable {
     case standard

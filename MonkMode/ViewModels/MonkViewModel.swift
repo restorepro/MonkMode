@@ -98,17 +98,26 @@ final class MonkViewModel: ObservableObject {
     static func loadSeedCards() -> [Flashcard] {
         guard let url = Bundle.main.url(forResource: "flashcards", withExtension: "json"),
               let data = try? Data(contentsOf: url) else {
-            print("❌ Could not find flashcards.json in bundle")
+            print("❌ flashcards.json not found in bundle")
             return []
         }
+
         do {
             let cards = try JSONDecoder().decode([Flashcard].self, from: data)
             print("📚 Loaded \(cards.count) flashcards")
+
+            // 🔎 Debug: print out courses and chapters
+            let grouped = Dictionary(grouping: cards) { "\($0.course ?? "Unknown") – \($0.chapter ?? "Unknown")" }
+            for (key, group) in grouped {
+                print("   \(key): \(group.count) cards")
+            }
+
             return cards
         } catch {
             print("❌ Failed to decode flashcards.json: \(error)")
             return []
         }
     }
+
 
 }
