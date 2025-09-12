@@ -11,28 +11,39 @@ struct Flashcard: Identifiable, Codable, Equatable {
     var id: UUID
     var question: String
     var answer: String
-
-    // ✅ Make type optional, default = .standard
-    var type: FlashcardType? = .standard
-
-    var choices: [String]? = nil
-    var correctIndex: Int? = nil
-
     var course: String?
     var chapter: String?
+
+    // Spaced repetition fields
     var easeFactor: Int?
     var intervalDays: Int?
     var repetitions: Int?
     var nextReview: TimeInterval?
+
+    // Engagement fields
     var imageUrl: String?
     var additionalInfo: String?
-    var bookmarkedSentences: [String]? = []
+    var bookmarkedSentences: [String]?
+
+    // 🆕 new: variants
+    var variants: [FlashcardVariant]?
+    // 🆕 for subtle labels
+       var flowMeta: FlowMeta? = nil
 }
 
+struct FlashcardVariant: Codable, Equatable {
+    var type: VariantType
+    var prompt: String
+    var answer: String
+}
 
-enum FlashcardType: String, Codable {
-    case standard
+enum VariantType: String, Codable {
+    case reverse
     case multipleChoice
     case fillInBlank
-    case trueFalse
+    case associative
+}
+enum FlowMeta: Codable, Equatable {
+    case vertical
+    case lateral(current: Int, total: Int)
 }

@@ -1,26 +1,87 @@
 [
   {
-    "id": "F1E2D3C4-1111-2222-3333-444455556666",
-    "question": "What is the capital of France?",
-    "answer": "Paris",
-    "type": "standard",
-    "course": "Geography 101",
-    "chapter": "Europe"
+    "id": "11111111-1111-1111-1111-111111111111",
+    "question": "What is a synapse?",
+    "answer": "A junction between neurons.",
+    "course": "Neuroscience 101",
+    "chapter": "Module 2",
+    "variants": [
+      {
+        "type": "reverse",
+        "prompt": "The junction between neurons is called what?",
+        "answer": "Synapse"
+      },
+      {
+        "type": "multipleChoice",
+        "prompt": "Which of these describes a synapse?",
+        "answer": "Junction between neurons"
+      }
+    ]
   },
   {
-    "id": "A1B2C3D4-7777-8888-9999-000011112222",
-    "question": "Who developed the theory of relativity?",
-    "answer": "Albert Einstein",
-    "type": "standard",
-    "course": "Physics 101",
-    "chapter": "Famous Scientists"
+    "id": "22222222-2222-2222-2222-222222222222",
+    "question": "What is an action potential?",
+    "answer": "A rapid electrical signal in a neuron.",
+    "course": "Neuroscience 101",
+    "chapter": "Module 2",
+    "variants": [
+      {
+        "type": "fillInBlank",
+        "prompt": "An action _______ is a rapid electrical signal in a neuron.",
+        "answer": "potential"
+      }
+    ]
   },
   {
-    "id": "C1D2E3F4-3333-4444-5555-666677778888",
-    "question": "What is the chemical symbol for water?",
-    "answer": "H₂O",
-    "type": "standard",
-    "course": "Chemistry 101",
-    "chapter": "Basics"
+    "id": "33333333-3333-3333-3333-333333333333",
+    "question": "What is myelin?",
+    "answer": "A fatty sheath around axons that speeds conduction.",
+    "course": "Neuroscience 101",
+    "chapter": "Module 2",
+    "variants": [
+      {
+        "type": "reverse",
+        "prompt": "The fatty sheath around axons that speeds conduction is called what?",
+        "answer": "Myelin"
+      }
+    ]
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444444",
+    "question": "What are neurotransmitters?",
+    "answer": "Chemical messengers that transmit signals across synapses.",
+    "course": "Neuroscience 101",
+    "chapter": "Module 2",
+    "variants": [
+      {
+        "type": "multipleChoice",
+        "prompt": "Which of these best defines neurotransmitters?",
+        "answer": "Chemical messengers that transmit signals across synapses"
+      },
+      {
+        "type": "fillInBlank",
+        "prompt": "________ are chemical messengers that transmit signals across synapses.",
+        "answer": "Neurotransmitters"
+      }
+    ]
+  },
+  {
+    "id": "55555555-5555-5555-5555-555555555555",
+    "question": "What is plasticity in the brain?",
+    "answer": "The brain's ability to change and adapt with experience.",
+    "course": "Neuroscience 101",
+    "chapter": "Module 2",
+    "variants": [
+      {
+        "type": "reverse",
+        "prompt": "The brain's ability to change and adapt with experience is called what?",
+        "answer": "Plasticity"
+      },
+      {
+        "type": "multipleChoice",
+        "prompt": "Which describes brain plasticity?",
+        "answer": "The brain's ability to change and adapt with experience"
+      }
+    ]
   }
 ]

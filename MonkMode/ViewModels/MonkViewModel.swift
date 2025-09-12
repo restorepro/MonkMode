@@ -22,20 +22,38 @@ final class MonkViewModel: ObservableObject {
     private var timer: AnyCancellable?
     private(set) var startTime = Date()
     
+    @Published var useTestData: Bool = false
+    @Published var useLateralClustering: Bool = false   // 🆕 new toggle
 
     let course: String
     let chapter: String
 
-    init(cards: [Flashcard]? = nil, course: String = "Psych 101", chapter: String = "Monk Demo") {
+    init(
+        cards: [Flashcard]? = nil,
+        course: String = "Psych 101",
+        chapter: String = "Monk Demo",
+        useTestData: Bool = true,
+        useLateralClustering: Bool = false
+    ) {
+        self.useTestData = useTestData
+        self.useLateralClustering = useLateralClustering
+        self.course = course
+        self.chapter = chapter
+
         if let provided = cards, !provided.isEmpty {
             self.cards = provided
         } else {
-            self.cards = MonkViewModel.loadSeedCards()
+            self.cards = MonkViewModel.loadSeedCards(
+                useTestData: useTestData,
+                useLateralClustering: useLateralClustering
+            )
         }
-        self.course = course
-        self.chapter = chapter
+
         startTimer()
     }
+
+
+
 
     func startTimer() {
         timeRemaining = settings.questionDuration
@@ -95,28 +113,65 @@ final class MonkViewModel: ObservableObject {
         SessionService.shared.addSession(session)   // ✅ integrate with your new service
     }
 
-    static func loadSeedCards() -> [Flashcard] {
-        guard let url = Bundle.main.url(forResource: "flashcards", withExtension: "json"),
+    // MonkViewModel.swift
+    static func loadSeedCards(
+        useTestData: Bool = false,
+        useLateralClustering: Bool = false
+    ) -> [Flashcard] {
+        let fileName = useTestData ? "MonkSeed" : "flashcards"
+
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
               let data = try? Data(contentsOf: url) else {
-            print("❌ flashcards.json not found in bundle")
+            print("❌ \(fileName).json not found in bundle")
             return []
         }
 
         do {
-            let cards = try JSONDecoder().decode([Flashcard].self, from: data)
-            print("📚 Loaded \(cards.count) flashcards")
+            let baseCards = try JSONDecoder().decode([Flashcard].self, from: data)
+            print("📚 Loaded \(baseCards.count) flashcards from \(fileName).json")
 
-            // 🔎 Debug: print out courses and chapters
-            let grouped = Dictionary(grouping: cards) { "\($0.course ?? "Unknown") – \($0.chapter ?? "Unknown")" }
-            for (key, group) in grouped {
-                print("   \(key): \(group.count) cards")
-            }
+            // 🔄 Expand deck according to toggle
+            let expanded = expandCards(baseCards, useLateralClustering: useLateralClustering)
+            print("📚 Expanded to \(expanded.count) cards (clustering: \(useLateralClustering))")
 
-            return cards
+            return expanded
         } catch {
-            print("❌ Failed to decode flashcards.json: \(error)")
+            print("❌ Failed to decode \(fileName).json: \(error)")
             return []
         }
+    }
+    private static func expandCards(
+        _ cards: [Flashcard],
+        useLateralClustering: Bool
+    ) -> [Flashcard] {
+        var expanded: [Flashcard] = []
+
+        for card in cards {
+            var baseCard = card
+            baseCard.flowMeta = .vertical
+            expanded.append(baseCard)
+
+            if let variants = card.variants {
+                let total = variants.count
+                for (index, v) in variants.enumerated() {
+                    var variantCard = makeVariantCard(from: card, variant: v)
+                    variantCard.flowMeta = .lateral(current: index + 1, total: total)
+                    expanded.append(variantCard)
+                }
+            }
+        }
+        return expanded
+    }
+
+
+    private static func makeVariantCard(from card: Flashcard, variant: FlashcardVariant) -> Flashcard {
+        Flashcard(
+            id: UUID(),
+            question: variant.prompt,
+            answer: variant.answer,
+            course: card.course,
+            chapter: card.chapter
+        )
     }
 
 

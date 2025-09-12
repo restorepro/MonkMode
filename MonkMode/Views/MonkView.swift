@@ -28,17 +28,19 @@ struct MonkView: View {
             } else if vm.currentIndex < vm.cards.count {
                 let card = vm.cards[vm.currentIndex]
 
-                VStack(spacing: 16) {
+                VStack(spacing: 12) {
+                    // Question
                     Text(card.question)
                         .font(.title)
                         .multilineTextAlignment(.center)
-                        .padding()
+                        .padding(.bottom, 4)
 
+                    // Answer (only if showing)
                     if vm.showingAnswer {
                         Text(card.answer)
                             .font(.title2)
                             .foregroundColor(.green)
-                            .padding()
+                            .padding(.bottom, 4)
 
                         HStack {
                             Button("👍 Correct") { vm.markCorrect() }
@@ -48,9 +50,24 @@ struct MonkView: View {
                         }
                     }
 
+                    // 🆕 Subtle flow label
+                    if let meta = card.flowMeta {
+                        switch meta {
+                        case .vertical:
+                            Text("↓ Next concept")
+                                .font(.caption2.italic())
+                                .foregroundColor(.gray.opacity(0.5))
+                        case .lateral(let current, let total):
+                            Text("Lateral → \(current)/\(total)")
+                                .font(.caption2.italic())
+                                .foregroundColor(.gray.opacity(0.5))
+                        }
+                    }
+
+                    // Timer
                     Text("⏱ \(vm.timeRemaining)s")
                         .font(.headline)
-                        .padding(.top)
+                        .padding(.top, 6)
                 }
             }
         }
