@@ -54,11 +54,11 @@ struct MonkView: View {
                     if let meta = card.flowMeta {
                         switch meta {
                         case .vertical:
-                            Text("↓ Next concept")
+                            Text("↓ Vertical")
                                 .font(.caption2.italic())
                                 .foregroundColor(.gray.opacity(0.5))
                         case .lateral(let current, let total):
-                            Text("Lateral → \(current)/\(total)")
+                            Text("Lateral Cluster → \(current)/\(total)")
                                 .font(.caption2.italic())
                                 .foregroundColor(.gray.opacity(0.5))
                         }
