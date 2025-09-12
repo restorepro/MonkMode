@@ -10,37 +10,80 @@ import SwiftUI
 struct FreeStudyView: View {
     @ObservedObject var vm: SessionManagerVM
 
-    @State private var showAnswer = false
-
     var body: some View {
-        VStack(spacing: 24) {
-            if vm.currentIndex < vm.cards.count {
+        VStack(spacing: 20) {
+            if vm.cards.isEmpty {
+                Text("⚠️ No cards available")
+
+            } else if vm.isFinished {
+                VStack(spacing: 12) {
+                    Text("🆓 Free Study Complete")
+                        .font(.title.bold())
+                    Text("Score: \(vm.score) / \(vm.cards.count)")
+                        .font(.title2)
+                }
+
+            } else {
                 let card = vm.cards[vm.currentIndex]
 
-                Text(card.question)
-                    .font(.title2)
-                    .multilineTextAlignment(.center)
+                VStack(spacing: 12) {
+                    // Question
+                    Text(card.question)
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom, 4)
 
-                if showAnswer {
-                    Text(card.answer)
-                        .font(.title3)
-                        .padding()
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-                }
+                    // Answer if revealed
+                    if vm.showingAnswer {
+                        if card.variantType == .multipleChoice, let options = card.choices {
+                            VStack(spacing: 8) {
+                                ForEach(options, id: \.self) { choice in
+                                    Text(choice)
+                                        .padding(6)
+                                        .frame(maxWidth: .infinity)
+                                        .background(choice == card.answer
+                                                    ? Color.green.opacity(0.3)
+                                                    : Color.gray.opacity(0.2))
+                                        .cornerRadius(8)
+                                }
+                            }
+                            .onAppear {
+                                print("✅ FreeStudy: Multiple choice shown with \(options.count) options. Correct=\(card.answer)")
+                            }
+                        } else {
+                            Text(card.answer)
+                                .font(.title2)
+                                .foregroundColor(.green)
+                                .onAppear {
+                                    print("✅ FreeStudy: Showing answer → \(card.answer)")
+                                }
+                        }
 
-                HStack {
-                    Button(showAnswer ? "Hide Answer" : "Show Answer") {
-                        showAnswer.toggle()
+                        HStack {
+                            Button("👍 Correct") { vm.markCorrect() }
+                                .buttonStyle(.borderedProminent)
+                            Button("👎 Missed") { vm.markIncorrect() }
+                                .buttonStyle(.bordered)
+                        }
                     }
-                    Button("Read Aloud") { vm.readCurrentCard() }
-                }
 
-                Button("Next") { vm.nextCard() }
+                    Spacer()
+
+                    // Reveal / Next button
+                    Button(vm.showingAnswer ? "➡️ Next" : "👁️ Reveal Answer") {
+                        if vm.showingAnswer {
+                            print("➡️ FreeStudy: Next card tapped at index \(vm.currentIndex)")
+                            vm.nextCard()
+                        } else {
+                            print("👁️ FreeStudy: Reveal tapped at index \(vm.currentIndex)")
+                            vm.showingAnswer = true
+                        }
+                    }
                     .buttonStyle(.borderedProminent)
-            } else {
-                Text("All done ✅").font(.headline)
+                }
+                .padding()
             }
         }
-        .padding()
+        .navigationTitle("Free Study")
     }
 }

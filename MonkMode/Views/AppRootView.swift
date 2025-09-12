@@ -13,19 +13,27 @@ struct AppRootView: View {
     @EnvironmentObject var themeManager: ThemeManager   // ✅ keep your theme manager
     @State private var showMusicOverlay = false
     @State private var showTimerOverlay = false
-    
+
+    // ⬇️ Keep selections here so they persist across sheets
+    @State private var selectedCourse: String = ""
+    @State private var selectedChapter: String = ""
+    @State private var selectedCards: [Flashcard] = []
 
     var body: some View {
         NavigationStack {
-            // Replaces HomeView with an in-file dashboard so we can add stat chips + session buttons
-            DashboardPage()
-                .environmentObject(vm)
-                .environmentObject(themeManager)   // ✅ pass down
-                .overlay(floatingButtons, alignment: .bottomTrailing)
-                .onAppear {
-                    AudioService.shared.configureSession()
-                }
-                .navigationTitle("MonkMode")
+            // Dashboard replaces HomeView
+            DashboardPage(
+                selectedCourse: $selectedCourse,
+                selectedChapter: $selectedChapter,
+                selectedCards: $selectedCards
+            )
+            .environmentObject(vm)
+            .environmentObject(themeManager)   // ✅ pass down
+            .overlay(floatingButtons, alignment: .bottomTrailing)
+            .onAppear {
+                AudioService.shared.configureSession()
+            }
+            .navigationTitle("MonkMode")
         }
         .sheet(isPresented: $showMusicOverlay) {
             MusicOverlayView()
@@ -38,7 +46,7 @@ struct AppRootView: View {
         .appBackground(theme: themeManager)        // ✅ apply global background
     }
 
-    // MARK: - Original floating buttons (unchanged behavior, with animation)
+    // MARK: - Floating buttons (with animation)
     private var floatingButtons: some View {
         VStack(spacing: 16) {
             // 🎶 Music hub button
@@ -64,8 +72,7 @@ struct AppRootView: View {
     }
 }
 
-// MARK: - Dashboard content (kept inside this file to avoid renaming your existing HomeView)
-// MARK: - Dashboard content (inside AppRootView.swift)
+// MARK: - Dashboard content
 private struct DashboardPage: View {
     @EnvironmentObject var vm: MonkViewModel
 
@@ -74,10 +81,10 @@ private struct DashboardPage: View {
     @State private var showLauncher = false
     @State private var showSession = false
 
-    // Selections
-    @State private var selectedCards: [Flashcard] = []
-    @State private var selectedCourse: String = ""      // ✅ added
-    @State private var selectedChapter: String = ""     // ✅ added
+    // Selections (bound from AppRootView ✅)
+    @Binding var selectedCourse: String
+    @Binding var selectedChapter: String
+    @Binding var selectedCards: [Flashcard]
 
     var body: some View {
         ScrollView {
@@ -92,7 +99,18 @@ private struct DashboardPage: View {
         .sheet(isPresented: $showLauncher) {
             if let mode = pendingMode {
                 SessionStartSheet(vm: vm, mode: mode) { course, chapter, cards in
-                    self.selectedCourse = course          // ✅ store values
+                    switch mode {
+                    case .treadmill:
+                        print("🏃 Treadmill start → \(course) / \(chapter) (\(cards.count) cards)")
+                    case .free:
+                        print("📖 Free Study start → \(course) / \(chapter) (\(cards.count) cards)")
+                    case .reading:
+                        print("📚 Reading start → \(course) / \(chapter) (\(cards.count) cards)")
+                    case .quiz:
+                        print("❓ Quiz start → \(course) / \(chapter) (\(cards.count) cards)")
+                    }
+
+                    self.selectedCourse = course
                     self.selectedChapter = chapter
                     self.selectedCards = cards
                     self.showSession = true
@@ -101,14 +119,16 @@ private struct DashboardPage: View {
                 Text("No mode selected").padding()
             }
         }
+
         // 2) Launch session in another sheet
         .sheet(isPresented: $showSession) {
             if let mode = pendingMode {
+//                print("🚀 Launching SessionManagerView → mode=\(mode.rawValue), cards=\(selectedCards.count), course=\(selectedCourse), chapter=\(selectedChapter)")
                 SessionManagerView(
                     vm: SessionManagerVM(
                         mode: mode,
                         cards: selectedCards,
-                        course: selectedCourse,           // ✅ pass down
+                        course: selectedCourse,
                         chapter: selectedChapter
                     )
                 )
@@ -130,7 +150,7 @@ private struct DashboardPage: View {
         }
     }
 
-    // MARK: - UI: Stat Chips (uses MonkViewModel helpers)
+    // MARK: - UI: Stat Chips
     private var statChips: some View {
         HStack(spacing: 8) {
             chip(title: "Today", value: "\(vm.sessionsTodayMinutes)m")
@@ -156,13 +176,14 @@ private struct DashboardPage: View {
         return h > 0 ? "\(h)h \(m)m" : "\(m)m"
     }
 
-    // MARK: - UI: Action Grid (session buttons)
+    // MARK: - UI: Action Grid
     private var actionGrid: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
 
             // Treadmill
             Button {
                 pendingMode = .treadmill
+                print("🎬 Selected mode: treadmill")
                 showLauncher = true
             } label: {
                 ActionCard(title: "Treadmill", icon: "figure.run")
@@ -171,6 +192,7 @@ private struct DashboardPage: View {
             // Regular (Free Study)
             Button {
                 pendingMode = .free
+                print("🎬 Selected mode: free (Regular Study)")
                 showLauncher = true
             } label: {
                 ActionCard(title: "Regular Study", icon: "doc.text")
@@ -179,6 +201,7 @@ private struct DashboardPage: View {
             // Reading
             Button {
                 pendingMode = .reading
+                print("🎬 Selected mode: reading")
                 showLauncher = true
             } label: {
                 ActionCard(title: "Reading", icon: "book")
@@ -187,6 +210,7 @@ private struct DashboardPage: View {
             // Quiz
             Button {
                 pendingMode = .quiz
+                print("🎬 Selected mode: quiz")
                 showLauncher = true
             } label: {
                 ActionCard(title: "Quiz", icon: "questionmark.circle")
@@ -195,25 +219,43 @@ private struct DashboardPage: View {
     }
 }
 
-// MARK: - Session launcher sheet (Course + Chapter picker)
+// MARK: - Session launcher sheet
 private struct SessionStartSheet: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var vm: MonkViewModel
     let mode: StudyMode
 
-    @State private var selectedCourse: String = ""
-    @State private var selectedChapter: String = ""
+    @State private var selectedCourse: String
+    @State private var selectedChapter: String
 
     let onStart: (_ course: String, _ chapter: String, _ cards: [Flashcard]) -> Void
 
-    private var courses: [String] {
-        Array(Set(vm.cards.compactMap { $0.course })).sorted()
+    // ✅ init ensures defaults are non-empty
+    init(vm: MonkViewModel, mode: StudyMode, onStart: @escaping (String, String, [Flashcard]) -> Void) {
+        self.vm = vm
+        self.mode = mode
+        self.onStart = onStart
+        let firstCourse = vm.cards.first?.course ?? ""
+        let firstChapter = vm.cards.first?.chapter ?? ""
+        _selectedCourse = State(initialValue: firstCourse)
+        _selectedChapter = State(initialValue: firstChapter)
+
+        print("🛠️ SessionStartSheet init → firstCourse=\(firstCourse), firstChapter=\(firstChapter), totalCards=\(vm.cards.count)")
     }
+
+    private var courses: [String] {
+        let list = Array(Set(vm.cards.compactMap { $0.course })).sorted()
+        print("📚 Available courses → \(list)")
+        return list
+    }
+
     private var chapters: [String] {
-        Array(Set(vm.cards
+        let list = Array(Set(vm.cards
             .filter { $0.course == selectedCourse }
             .compactMap { $0.chapter }))
             .sorted()
+        print("📖 Chapters for course=\(selectedCourse) → \(list)")
+        return list
     }
 
     var body: some View {
@@ -223,11 +265,22 @@ private struct SessionStartSheet: View {
                     Text(mode.rawValue.capitalized)
                         .font(.headline)
                 }
+
                 Section("Course") {
                     Picker("Course", selection: $selectedCourse) {
                         ForEach(courses, id: \.self) { Text($0).tag($0) }
                     }
+                    .onChange(of: selectedCourse) { newCourse in
+                        print("🔄 Course changed → \(newCourse)")
+                        if let first = vm.cards.first(where: { $0.course == newCourse })?.chapter {
+                            selectedChapter = first
+                            print("   ↳ Auto-selected chapter → \(first)")
+                        } else {
+                            print("   ⚠️ No chapters found for course=\(newCourse)")
+                        }
+                    }
                 }
+
                 Section("Chapter") {
                     Picker("Chapter", selection: $selectedChapter) {
                         ForEach(chapters, id: \.self) { Text($0).tag($0) }
@@ -237,14 +290,29 @@ private struct SessionStartSheet: View {
             .navigationTitle("Start Session")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") { dismiss() }
+                    Button("Close") {
+                        print("❌ SessionStartSheet dismissed without starting")
+                        dismiss()
+                    }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Start") {
+                        print("▶️ Start tapped → course=\(selectedCourse), chapter=\(selectedChapter)")
                         let cards = vm.cards.filter {
                             $0.course == selectedCourse && $0.chapter == selectedChapter
                         }
-                        onStart(selectedCourse, selectedChapter, cards)
+                        print("   📦 Filtered cards count=\(cards.count)")
+                        if cards.isEmpty {
+                            print("   ⚠️ No cards matched course=\(selectedCourse), chapter=\(selectedChapter)")
+                        } else {
+                            print("   ✅ Passing cards to onStart")
+                        }
+
+                        // 🔑 Pass cards immediately, but trigger session launch on next runloop tick
+                        DispatchQueue.main.async {
+                            onStart(selectedCourse, selectedChapter, cards)
+                        }
+
                         dismiss()
                     }
                     .disabled(selectedCourse.isEmpty || selectedChapter.isEmpty)

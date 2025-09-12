@@ -38,11 +38,12 @@ struct SessionManagerView: View {
                     // 🚀 Use MonkView so JSON + lateral clusters show
                     MonkView(vm: MonkViewModel(
                         cards: vm.cards,
-                        course: "SessionCourse",   // can pass vm.course if you add that
-                        chapter: "SessionChapter", // same here
+                        course: vm.course,    // ✅ use the actual
+                        chapter: vm.chapter,
                         useTestData: true,
                         useLateralClustering: true
                     ))
+
                 case .reading:
                     ReadingSessionView(vm: vm)
                 case .quiz:
