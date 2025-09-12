@@ -35,4 +35,18 @@ final class FileService {
             return nil
         }
     }
+    func loadFromBundle<T: Decodable>(_ type: T.Type, filename: String) -> T? {
+        guard let url = Bundle.main.url(forResource: filename, withExtension: nil) else {
+            print("⚠️ Could not find \(filename) in bundle")
+            return nil
+        }
+        do {
+            let data = try Data(contentsOf: url)
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            print("❌ Failed to decode \(filename): \(error)")
+            return nil
+        }
+    }
+
 }

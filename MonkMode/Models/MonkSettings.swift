@@ -10,5 +10,6 @@ import Foundation
 struct MonkSettings: Codable {
     var questionDuration: Int = 5   // seconds per question
     var answerDuration: Int = 5     // seconds per answer
-    var shuffle: Bool = false       // shuffle flashcards
+    var shuffle: Bool = false
+    var autoSave: Bool = true
 }

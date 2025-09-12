@@ -10,55 +10,105 @@ import Combine
 
 @MainActor
 final class MonkViewModel: ObservableObject {
-    // MARK: - Published state for Views
     @Published var cards: [Flashcard] = []
-        @Published var chapters: [ReaderChapter] = []
-        @Published var sessions: [StudySession] = []
-        @Published var currentIndex: Int = 0
-        @Published var selectedCourse: String? = nil
-        @Published var selectedChapter: String? = nil //MonkView compiles
-    
-    // MARK: - Services (use .shared singletons)
-    private let flashcardService = FlashcardService.shared
-    private let readerService = ReaderService.shared
-    private let sessionService = SessionService.shared
-    private let fileService = FileService.shared
+    @Published var currentIndex: Int = 0
+    @Published var timeRemaining: Int = 5
+    @Published var showingAnswer: Bool = false
+    @Published var isFinished: Bool = false
+    @Published var score: Int = 0
+    @Published var missed: [Flashcard] = []
     @Published var settings = MonkSettings()
 
+    private var timer: AnyCancellable?
+    private(set) var startTime = Date()
     
-    // MARK: - Init
-    init() {
-        loadSeedData()
-        loadSessions()
-    }
-    
-    // MARK: - Data Loading
-    private func loadSeedData() {
-        // You might want separate seed files later, for now use one
-        if let seededFlashcards: [Flashcard] = fileService.load([Flashcard].self, from: "MonkSeed.json") {
-            self.cards = seededFlashcards
+
+    let course: String
+    let chapter: String
+
+    init(cards: [Flashcard]? = nil, course: String = "Psych 101", chapter: String = "Monk Demo") {
+        if let provided = cards, !provided.isEmpty {
+            self.cards = provided
+        } else {
+            self.cards = MonkViewModel.loadSeedCards()
         }
-        if let seededChapters: [ReaderChapter] = fileService.load([ReaderChapter].self, from: "MonkSeed.json") {
-            self.chapters = seededChapters
+        self.course = course
+        self.chapter = chapter
+        startTimer()
+    }
+
+    func startTimer() {
+        timeRemaining = settings.questionDuration
+        showingAnswer = false
+        timer?.cancel()
+
+        timer = Timer.publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in self?.tick() }
+    }
+
+    private func tick() {
+        guard currentIndex < cards.count else { return }
+
+        if timeRemaining > 0 {
+            timeRemaining -= 1
+        } else if !showingAnswer {
+            showingAnswer = true
+            timeRemaining = settings.answerDuration   // ✅ now uses setting
+        } else {
+            nextCard()
         }
     }
-    
-    private func loadSessions() {
-        self.sessions = sessionService.load()
+
+
+    private func nextCard() {
+        currentIndex += 1
+        if currentIndex >= cards.count {
+            finishSession()
+        } else {
+            startTimer()
+        }
     }
-    
-    // MARK: - User Actions
-    func addFlashcard(_ card: Flashcard) {
-        cards.append(card)
-        flashcardService.addCard(card)   // ✅ match your FlashcardService API
+
+    func markCorrect() {
+        score += 1
     }
-    
-    func addSession(_ session: StudySession) {
-        sessions.append(session)
-        sessionService.addSession(session)   // ✅ you’ll need to define this in SessionService
+
+    func markIncorrect() {
+        missed.append(cards[currentIndex])
     }
-    
-    func getChapters(for course: String) -> [ReaderChapter] {
-        chapters.filter { $0.course == course }
+
+    private func finishSession() {
+        timer?.cancel()
+        isFinished = true
+
+        let session = StudySession(
+            id: UUID(),
+            date: Date(),
+            mode: "Monk",
+            course: course,
+            chapter: chapter,
+            duration: Date().timeIntervalSince(startTime),
+            score: score,
+            missed: missed.count
+        )
+        SessionService.shared.addSession(session)   // ✅ integrate with your new service
     }
+
+    static func loadSeedCards() -> [Flashcard] {
+        guard let url = Bundle.main.url(forResource: "flashcards", withExtension: "json"),
+              let data = try? Data(contentsOf: url) else {
+            print("❌ Could not find flashcards.json in bundle")
+            return []
+        }
+        do {
+            let cards = try JSONDecoder().decode([Flashcard].self, from: data)
+            print("📚 Loaded \(cards.count) flashcards")
+            return cards
+        } catch {
+            print("❌ Failed to decode flashcards.json: \(error)")
+            return []
+        }
+    }
+
 }

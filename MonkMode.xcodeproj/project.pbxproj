@@ -29,6 +29,8 @@
 		897DF6682E739A9900E98004 /* ReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6672E739A9900E98004 /* ReaderViewModel.swift */; };
 		897DF66A2E739AAA00E98004 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6692E739AAA00E98004 /* SessionViewModel.swift */; };
 		897DF66C2E739E9900E98004 /* MonkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF66B2E739E9900E98004 /* MonkSettings.swift */; };
+		897DF66E2E73AA9700E98004 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF66D2E73AA9700E98004 /* HomeView.swift */; };
+		897DF6702E73ABB900E98004 /* ActionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF66F2E73ABB900E98004 /* ActionCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		897DF6672E739A9900E98004 /* ReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewModel.swift; sourceTree = "<group>"; };
 		897DF6692E739AAA00E98004 /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		897DF66B2E739E9900E98004 /* MonkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkSettings.swift; sourceTree = "<group>"; };
+		897DF66D2E73AA9700E98004 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		897DF66F2E73ABB900E98004 /* ActionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 				897DF6392E73930100E98004 /* Assets.xcassets */,
 				897DF63B2E73930100E98004 /* MonkMode.entitlements */,
 				897DF63C2E73930100E98004 /* Preview Content */,
+				897DF66D2E73AA9700E98004 /* HomeView.swift */,
 			);
 			path = MonkMode;
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 				897DF6592E73981400E98004 /* MonkView.swift */,
 				897DF65B2E73982700E98004 /* MonkSettingsView.swift */,
 				897DF65D2E73983E00E98004 /* SessionsLogView.swift */,
+				897DF66F2E73ABB900E98004 /* ActionCard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,6 +242,7 @@
 			files = (
 				897DF65E2E73983E00E98004 /* SessionsLogView.swift in Sources */,
 				897DF66A2E739AAA00E98004 /* SessionViewModel.swift in Sources */,
+				897DF6702E73ABB900E98004 /* ActionCard.swift in Sources */,
 				897DF6572E7397D400E98004 /* FlashcardService.swift in Sources */,
 				897DF6382E7392FD00E98004 /* ContentView.swift in Sources */,
 				897DF6642E739A6800E98004 /* MonkViewModel.swift in Sources */,
@@ -247,6 +254,7 @@
 				897DF66C2E739E9900E98004 /* MonkSettings.swift in Sources */,
 				897DF64F2E73952000E98004 /* SessionService.swift in Sources */,
 				897DF65A2E73981400E98004 /* MonkView.swift in Sources */,
+				897DF66E2E73AA9700E98004 /* HomeView.swift in Sources */,
 				897DF64D2E7394EE00E98004 /* ReaderService.swift in Sources */,
 				897DF6492E7394AD00E98004 /* StudySession.swift in Sources */,
 				897DF6552E7397B300E98004 /* Flashcard.swift in Sources */,

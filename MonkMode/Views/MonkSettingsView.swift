@@ -14,11 +14,19 @@ struct MonkSettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Stepper("Question Duration: \(vm.settings.questionDuration)s",
-                        value: $vm.settings.questionDuration, in: 1...30)
-                Stepper("Answer Duration: \(vm.settings.answerDuration)s",
-                        value: $vm.settings.answerDuration, in: 1...30)
-                Toggle("Shuffle Cards", isOn: $vm.settings.shuffle)
+                Section("Timing") {
+                    Stepper("Question Duration: \(vm.settings.questionDuration)s",
+                            value: $vm.settings.questionDuration,
+                            in: 3...30)
+                    Stepper("Answer Duration: \(vm.settings.answerDuration)s",
+                            value: $vm.settings.answerDuration,
+                            in: 3...30)
+                }
+
+                Section("Options") {
+                    Toggle("Shuffle Cards", isOn: $vm.settings.shuffle)
+                    Toggle("Auto-Save Sessions", isOn: $vm.settings.autoSave)
+                }
             }
             .navigationTitle("Settings")
             .toolbar {

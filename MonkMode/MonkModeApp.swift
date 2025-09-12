@@ -8,14 +8,13 @@
 import SwiftUI
 
 @main
-struct MonkModeApp: App {   // ✅ renamed from ContentView
+struct MonkModeApp: App {
     @StateObject private var vm = MonkViewModel()
 
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                MonkView(vm: vm)
-            }
+            HomeView()
+                .environmentObject(vm)
         }
     }
 }
