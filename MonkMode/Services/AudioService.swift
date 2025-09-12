@@ -9,7 +9,9 @@ import AVFoundation
 
 final class AudioService: ObservableObject {
     static let shared = AudioService()
-    private init() {}   // ✅ no override
+    private init() {
+        loadPreferences()   // 👈 restore last settings on init
+    }
 
     private var player: AVAudioPlayer?
     private var previousVolume: Float?
@@ -17,9 +19,14 @@ final class AudioService: ObservableObject {
 
     // Published state for UI binding
     @Published var isPlaying: Bool = false
-    @Published var currentTrack: String?
+    @Published var currentTrack: String? {
+        didSet { savePreferences() }
+    }
     @Published var volume: Float = 0.6 {
-        didSet { player?.volume = volume }
+        didSet {
+            player?.volume = volume
+            savePreferences()
+        }
     }
     @Published var currentTime: TimeInterval = 0
     @Published var duration: TimeInterval = 0
@@ -27,7 +34,6 @@ final class AudioService: ObservableObject {
     // Call once at app start
     func configureSession() {
         do {
-            // ✅ playback only, no ducking enforced
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
@@ -35,15 +41,14 @@ final class AudioService: ObservableObject {
         }
     }
 
-    // Plays a track by filename (e.g. "lofi.mp3"), searching both root and "Audio/"
+    // Plays a track by filename (e.g. "lofi.mp3")
     func playSound(named name: String, loop: Bool = true, volume: Float? = nil) {
-        // Try Audio/ first, then root
         let url: URL? =
             Bundle.main.url(forResource: name, withExtension: nil, subdirectory: "Audio")
             ?? Bundle.main.url(forResource: name, withExtension: nil)
 
         guard let url else {
-            print("⚠️ Missing sound asset: \(name) (looked in root and 'Audio/') ")
+            print("⚠️ Missing sound asset: \(name)")
             return
         }
 
@@ -91,20 +96,14 @@ final class AudioService: ObservableObject {
         currentTime = time
     }
 
-    // Returns all available .mp3 files in bundle root OR in an "Audio/" subfolder
     func availableTracks() -> [String] {
         var names: Set<String> = []
-
-        // 1) Anything at bundle root
         if let root = Bundle.main.urls(forResourcesWithExtension: "mp3", subdirectory: nil) {
             root.forEach { names.insert($0.lastPathComponent) }
         }
-        // 2) Anything under "Audio/" (works if you used a blue folder ref)
         if let sub = Bundle.main.urls(forResourcesWithExtension: "mp3", subdirectory: "Audio") {
             sub.forEach { names.insert($0.lastPathComponent) }
         }
-
-        // Sort for a stable UI order
         return names.sorted()
     }
 
@@ -122,16 +121,36 @@ final class AudioService: ObservableObject {
         progressTimer = nil
     }
 
-    // MARK: - Duck / Restore (kept for compatibility with SpeechReader)
+    // MARK: - Preferences Persistence
+    private let defaults = UserDefaults.standard
+    private let volumeKey = "audio_volume"
+    private let trackKey = "audio_track"
 
-    /// Gently lowers the internal player’s volume while TTS is speaking.
+    private func savePreferences() {
+        defaults.set(volume, forKey: volumeKey)
+        defaults.set(currentTrack, forKey: trackKey)
+    }
+
+    private func loadPreferences() {
+        if defaults.object(forKey: volumeKey) != nil {
+            volume = defaults.float(forKey: volumeKey)
+        }
+        if let savedTrack = defaults.string(forKey: trackKey) {
+            currentTrack = savedTrack
+            // Auto-play last track if available
+            if availableTracks().contains(savedTrack) {
+                playSound(named: savedTrack)
+            }
+        }
+    }
+
+    // MARK: - Duck / Restore (kept for compatibility with SpeechReader)
     func duckVolume(to value: Float = 0.2, fadeDuration: TimeInterval = 0.25) {
         guard let p = player else { return }
         if previousVolume == nil { previousVolume = p.volume }
         p.setVolume(value, fadeDuration: fadeDuration)
     }
 
-    /// Restores the volume back to its previous value after TTS finishes.
     func restoreVolume(fadeDuration: TimeInterval = 0.25) {
         guard let p = player else { return }
         let target = previousVolume ?? 1.0

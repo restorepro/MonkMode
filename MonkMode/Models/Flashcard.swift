@@ -29,6 +29,9 @@ struct Flashcard: Identifiable, Codable, Equatable {
     var variants: [FlashcardVariant]?
     // 🆕 for subtle labels
        var flowMeta: FlowMeta? = nil
+    // NEW
+        var createdAt: Date = Date() // ✅ creation date for metrics
+
 }
 
 struct FlashcardVariant: Codable, Equatable {
@@ -47,3 +50,4 @@ enum FlowMeta: Codable, Equatable {
     case vertical
     case lateral(current: Int, total: Int)
 }
+
