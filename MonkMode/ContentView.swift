@@ -7,18 +7,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
+struct ContentView: App {
+    @StateObject private var vm = MonkViewModel()   // ✅ single shared instance
 
-#Preview {
-    ContentView()
+        var body: some Scene {
+            WindowGroup {
+                NavigationStack {
+                    MonkView(vm: vm)
+                }
+            }
+        }
 }

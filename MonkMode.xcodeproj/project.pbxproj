@@ -11,6 +11,24 @@
 		897DF6382E7392FD00E98004 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6372E7392FD00E98004 /* ContentView.swift */; };
 		897DF63A2E73930100E98004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 897DF6392E73930100E98004 /* Assets.xcassets */; };
 		897DF63E2E73930100E98004 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 897DF63D2E73930100E98004 /* Preview Assets.xcassets */; };
+		897DF6472E73948B00E98004 /* ReaderChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6462E73948B00E98004 /* ReaderChapter.swift */; };
+		897DF6492E7394AD00E98004 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6482E7394AD00E98004 /* StudySession.swift */; };
+		897DF64B2E7394CF00E98004 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF64A2E7394CF00E98004 /* FileService.swift */; };
+		897DF64D2E7394EE00E98004 /* ReaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF64C2E7394EE00E98004 /* ReaderService.swift */; };
+		897DF64F2E73952000E98004 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF64E2E73952000E98004 /* SessionService.swift */; };
+		897DF6512E73954200E98004 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6502E73954200E98004 /* AIService.swift */; };
+		897DF6532E7395B500E98004 /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6522E7395B500E98004 /* TokenStore.swift */; };
+		897DF6552E7397B300E98004 /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6542E7397B300E98004 /* Flashcard.swift */; };
+		897DF6572E7397D400E98004 /* FlashcardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6562E7397D400E98004 /* FlashcardService.swift */; };
+		897DF65A2E73981400E98004 /* MonkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6592E73981400E98004 /* MonkView.swift */; };
+		897DF65C2E73982700E98004 /* MonkSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF65B2E73982700E98004 /* MonkSettingsView.swift */; };
+		897DF65E2E73983E00E98004 /* SessionsLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF65D2E73983E00E98004 /* SessionsLogView.swift */; };
+		897DF6612E73988800E98004 /* MonkSeed.json in Resources */ = {isa = PBXBuildFile; fileRef = 897DF6602E73988800E98004 /* MonkSeed.json */; };
+		897DF6642E739A6800E98004 /* MonkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6632E739A6800E98004 /* MonkViewModel.swift */; };
+		897DF6662E739A8800E98004 /* FlashcardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6652E739A8800E98004 /* FlashcardViewModel.swift */; };
+		897DF6682E739A9900E98004 /* ReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6672E739A9900E98004 /* ReaderViewModel.swift */; };
+		897DF66A2E739AAA00E98004 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6692E739AAA00E98004 /* SessionViewModel.swift */; };
+		897DF66C2E739E9900E98004 /* MonkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF66B2E739E9900E98004 /* MonkSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +38,24 @@
 		897DF6392E73930100E98004 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		897DF63B2E73930100E98004 /* MonkMode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MonkMode.entitlements; sourceTree = "<group>"; };
 		897DF63D2E73930100E98004 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		897DF6462E73948B00E98004 /* ReaderChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderChapter.swift; sourceTree = "<group>"; };
+		897DF6482E7394AD00E98004 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
+		897DF64A2E7394CF00E98004 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		897DF64C2E7394EE00E98004 /* ReaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderService.swift; sourceTree = "<group>"; };
+		897DF64E2E73952000E98004 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		897DF6502E73954200E98004 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
+		897DF6522E7395B500E98004 /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
+		897DF6542E7397B300E98004 /* Flashcard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
+		897DF6562E7397D400E98004 /* FlashcardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardService.swift; sourceTree = "<group>"; };
+		897DF6592E73981400E98004 /* MonkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkView.swift; sourceTree = "<group>"; };
+		897DF65B2E73982700E98004 /* MonkSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkSettingsView.swift; sourceTree = "<group>"; };
+		897DF65D2E73983E00E98004 /* SessionsLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsLogView.swift; sourceTree = "<group>"; };
+		897DF6602E73988800E98004 /* MonkSeed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MonkSeed.json; sourceTree = "<group>"; };
+		897DF6632E739A6800E98004 /* MonkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkViewModel.swift; sourceTree = "<group>"; };
+		897DF6652E739A8800E98004 /* FlashcardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardViewModel.swift; sourceTree = "<group>"; };
+		897DF6672E739A9900E98004 /* ReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewModel.swift; sourceTree = "<group>"; };
+		897DF6692E739AAA00E98004 /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
+		897DF66B2E739E9900E98004 /* MonkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +88,11 @@
 		897DF6342E7392FD00E98004 /* MonkMode */ = {
 			isa = PBXGroup;
 			children = (
+				897DF6622E739A1D00E98004 /* ViewModels */,
+				897DF65F2E73984700E98004 /* Resources */,
+				897DF6582E7397FA00E98004 /* Views */,
+				897DF6452E73946B00E98004 /* Services */,
+				897DF6442E73945000E98004 /* Models */,
 				897DF6352E7392FD00E98004 /* MonkModeApp.swift */,
 				897DF6372E7392FD00E98004 /* ContentView.swift */,
 				897DF6392E73930100E98004 /* Assets.xcassets */,
@@ -67,6 +108,59 @@
 				897DF63D2E73930100E98004 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		897DF6442E73945000E98004 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				897DF6462E73948B00E98004 /* ReaderChapter.swift */,
+				897DF6482E7394AD00E98004 /* StudySession.swift */,
+				897DF6542E7397B300E98004 /* Flashcard.swift */,
+				897DF66B2E739E9900E98004 /* MonkSettings.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		897DF6452E73946B00E98004 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				897DF64A2E7394CF00E98004 /* FileService.swift */,
+				897DF64C2E7394EE00E98004 /* ReaderService.swift */,
+				897DF64E2E73952000E98004 /* SessionService.swift */,
+				897DF6502E73954200E98004 /* AIService.swift */,
+				897DF6522E7395B500E98004 /* TokenStore.swift */,
+				897DF6562E7397D400E98004 /* FlashcardService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		897DF6582E7397FA00E98004 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				897DF6592E73981400E98004 /* MonkView.swift */,
+				897DF65B2E73982700E98004 /* MonkSettingsView.swift */,
+				897DF65D2E73983E00E98004 /* SessionsLogView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		897DF65F2E73984700E98004 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				897DF6602E73988800E98004 /* MonkSeed.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		897DF6622E739A1D00E98004 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				897DF6632E739A6800E98004 /* MonkViewModel.swift */,
+				897DF6652E739A8800E98004 /* FlashcardViewModel.swift */,
+				897DF6672E739A9900E98004 /* ReaderViewModel.swift */,
+				897DF6692E739AAA00E98004 /* SessionViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +221,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				897DF6612E73988800E98004 /* MonkSeed.json in Resources */,
 				897DF63E2E73930100E98004 /* Preview Assets.xcassets in Resources */,
 				897DF63A2E73930100E98004 /* Assets.xcassets in Resources */,
 			);
@@ -139,8 +234,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				897DF65E2E73983E00E98004 /* SessionsLogView.swift in Sources */,
+				897DF66A2E739AAA00E98004 /* SessionViewModel.swift in Sources */,
+				897DF6572E7397D400E98004 /* FlashcardService.swift in Sources */,
 				897DF6382E7392FD00E98004 /* ContentView.swift in Sources */,
+				897DF6642E739A6800E98004 /* MonkViewModel.swift in Sources */,
+				897DF6682E739A9900E98004 /* ReaderViewModel.swift in Sources */,
 				897DF6362E7392FD00E98004 /* MonkModeApp.swift in Sources */,
+				897DF6532E7395B500E98004 /* TokenStore.swift in Sources */,
+				897DF65C2E73982700E98004 /* MonkSettingsView.swift in Sources */,
+				897DF6662E739A8800E98004 /* FlashcardViewModel.swift in Sources */,
+				897DF66C2E739E9900E98004 /* MonkSettings.swift in Sources */,
+				897DF64F2E73952000E98004 /* SessionService.swift in Sources */,
+				897DF65A2E73981400E98004 /* MonkView.swift in Sources */,
+				897DF64D2E7394EE00E98004 /* ReaderService.swift in Sources */,
+				897DF6492E7394AD00E98004 /* StudySession.swift in Sources */,
+				897DF6552E7397B300E98004 /* Flashcard.swift in Sources */,
+				897DF6512E73954200E98004 /* AIService.swift in Sources */,
+				897DF64B2E7394CF00E98004 /* FileService.swift in Sources */,
+				897DF6472E73948B00E98004 /* ReaderChapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
