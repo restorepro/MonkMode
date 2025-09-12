@@ -9,9 +9,10 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var vm: MonkViewModel
+    @State private var showSettings = false   // ✅ add sheet toggle
 
     var body: some View {
-        NavigationStack {   // ✅ wrap everything in NavigationStack
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     header
@@ -20,6 +21,16 @@ struct HomeView: View {
                 .padding(16)
             }
             .navigationTitle("Home")
+            .toolbar {
+                Button {
+                    showSettings = true
+                } label: {
+                    Image(systemName: "gear")
+                }
+            }
+            .sheet(isPresented: $showSettings) {
+                MonkSettingsView(vm: vm)
+            }
         }
     }
 
@@ -38,12 +49,6 @@ struct HomeView: View {
                 MonkView(vm: vm)
             } label: {
                 ActionCard(title: "🧘 Monk Mode", icon: "figure.meditation")
-            }
-
-            NavigationLink {
-                MonkSettingsView(vm: vm)
-            } label: {
-                ActionCard(title: "⚙️ Settings", icon: "gear")
             }
         }
     }

@@ -31,6 +31,10 @@
 		897DF66C2E739E9900E98004 /* MonkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF66B2E739E9900E98004 /* MonkSettings.swift */; };
 		897DF66E2E73AA9700E98004 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF66D2E73AA9700E98004 /* HomeView.swift */; };
 		897DF6702E73ABB900E98004 /* ActionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF66F2E73ABB900E98004 /* ActionCard.swift */; };
+		897DF6722E73B11100E98004 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6712E73B11100E98004 /* AppRootView.swift */; };
+		897DF6742E73B1C900E98004 /* FloatingHubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6732E73B1C900E98004 /* FloatingHubButton.swift */; };
+		897DF6762E73B1E900E98004 /* MusicOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6752E73B1E900E98004 /* MusicOverlayView.swift */; };
+		897DF6782E73B1FE00E98004 /* TimerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6772E73B1FE00E98004 /* TimerOverlayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +64,10 @@
 		897DF66B2E739E9900E98004 /* MonkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkSettings.swift; sourceTree = "<group>"; };
 		897DF66D2E73AA9700E98004 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		897DF66F2E73ABB900E98004 /* ActionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCard.swift; sourceTree = "<group>"; };
+		897DF6712E73B11100E98004 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
+		897DF6732E73B1C900E98004 /* FloatingHubButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingHubButton.swift; sourceTree = "<group>"; };
+		897DF6752E73B1E900E98004 /* MusicOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicOverlayView.swift; sourceTree = "<group>"; };
+		897DF6772E73B1FE00E98004 /* TimerOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerOverlayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +154,10 @@
 				897DF65B2E73982700E98004 /* MonkSettingsView.swift */,
 				897DF65D2E73983E00E98004 /* SessionsLogView.swift */,
 				897DF66F2E73ABB900E98004 /* ActionCard.swift */,
+				897DF6712E73B11100E98004 /* AppRootView.swift */,
+				897DF6732E73B1C900E98004 /* FloatingHubButton.swift */,
+				897DF6752E73B1E900E98004 /* MusicOverlayView.swift */,
+				897DF6772E73B1FE00E98004 /* TimerOverlayView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -247,6 +259,7 @@
 				897DF6382E7392FD00E98004 /* ContentView.swift in Sources */,
 				897DF6642E739A6800E98004 /* MonkViewModel.swift in Sources */,
 				897DF6682E739A9900E98004 /* ReaderViewModel.swift in Sources */,
+				897DF6782E73B1FE00E98004 /* TimerOverlayView.swift in Sources */,
 				897DF6362E7392FD00E98004 /* MonkModeApp.swift in Sources */,
 				897DF6532E7395B500E98004 /* TokenStore.swift in Sources */,
 				897DF65C2E73982700E98004 /* MonkSettingsView.swift in Sources */,
@@ -254,13 +267,16 @@
 				897DF66C2E739E9900E98004 /* MonkSettings.swift in Sources */,
 				897DF64F2E73952000E98004 /* SessionService.swift in Sources */,
 				897DF65A2E73981400E98004 /* MonkView.swift in Sources */,
+				897DF6722E73B11100E98004 /* AppRootView.swift in Sources */,
 				897DF66E2E73AA9700E98004 /* HomeView.swift in Sources */,
 				897DF64D2E7394EE00E98004 /* ReaderService.swift in Sources */,
 				897DF6492E7394AD00E98004 /* StudySession.swift in Sources */,
 				897DF6552E7397B300E98004 /* Flashcard.swift in Sources */,
 				897DF6512E73954200E98004 /* AIService.swift in Sources */,
 				897DF64B2E7394CF00E98004 /* FileService.swift in Sources */,
+				897DF6742E73B1C900E98004 /* FloatingHubButton.swift in Sources */,
 				897DF6472E73948B00E98004 /* ReaderChapter.swift in Sources */,
+				897DF6762E73B1E900E98004 /* MusicOverlayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
