@@ -27,9 +27,15 @@ struct Flashcard: Identifiable, Codable, Equatable {
 
     // 🆕 new: variants
     var variants: [FlashcardVariant]?
-    // 🆕 for subtle labels
-       var flowMeta: FlowMeta? = nil
 
+    // 🆕 for subtle labels
+    var flowMeta: FlowMeta? = nil
+
+    // 🆕 track what kind of card this is after expansion
+    var variantType: VariantType? = nil
+        
+    // 🆕 multiple choice support
+    var choices: [String]? = nil
 }
 
 struct FlashcardVariant: Codable, Equatable {
@@ -37,7 +43,6 @@ struct FlashcardVariant: Codable, Equatable {
     var prompt: String
     var answer: String
     var choices: [String]?   // ✅ optional, only used for multipleChoice
-
 }
 
 enum VariantType: String, Codable {
@@ -46,8 +51,8 @@ enum VariantType: String, Codable {
     case fillInBlank
     case associative
 }
+
 enum FlowMeta: Codable, Equatable {
     case vertical
     case lateral(current: Int, total: Int)
 }
-

@@ -13,6 +13,7 @@ struct AppRootView: View {
     @EnvironmentObject var themeManager: ThemeManager   // ✅ keep your theme manager
     @State private var showMusicOverlay = false
     @State private var showTimerOverlay = false
+    
 
     var body: some View {
         NavigationStack {
@@ -64,14 +65,19 @@ struct AppRootView: View {
 }
 
 // MARK: - Dashboard content (kept inside this file to avoid renaming your existing HomeView)
+// MARK: - Dashboard content (inside AppRootView.swift)
 private struct DashboardPage: View {
     @EnvironmentObject var vm: MonkViewModel
 
-    // Launcher state for starting a session after picking course/chapter
+    // Launcher state
     @State private var pendingMode: StudyMode? = nil
     @State private var showLauncher = false
     @State private var showSession = false
+
+    // Selections
     @State private var selectedCards: [Flashcard] = []
+    @State private var selectedCourse: String = ""      // ✅ added
+    @State private var selectedChapter: String = ""     // ✅ added
 
     var body: some View {
         ScrollView {
@@ -85,7 +91,9 @@ private struct DashboardPage: View {
         // 1) Pick course/chapter in a sheet
         .sheet(isPresented: $showLauncher) {
             if let mode = pendingMode {
-                SessionStartSheet(vm: vm, mode: mode) { _, _, cards in
+                SessionStartSheet(vm: vm, mode: mode) { course, chapter, cards in
+                    self.selectedCourse = course          // ✅ store values
+                    self.selectedChapter = chapter
                     self.selectedCards = cards
                     self.showSession = true
                 }
@@ -93,10 +101,17 @@ private struct DashboardPage: View {
                 Text("No mode selected").padding()
             }
         }
-        // 2) Start the session after selection
+        // 2) Launch session in another sheet
         .sheet(isPresented: $showSession) {
             if let mode = pendingMode {
-                SessionManagerView(vm: SessionManagerVM(mode: mode, cards: selectedCards))
+                SessionManagerView(
+                    vm: SessionManagerVM(
+                        mode: mode,
+                        cards: selectedCards,
+                        course: selectedCourse,           // ✅ pass down
+                        chapter: selectedChapter
+                    )
+                )
             } else {
                 Text("No session available").padding()
             }
@@ -115,7 +130,7 @@ private struct DashboardPage: View {
         }
     }
 
-    // MARK: - UI: Stat Chips (uses your MonkViewModel helpers)
+    // MARK: - UI: Stat Chips (uses MonkViewModel helpers)
     private var statChips: some View {
         HStack(spacing: 8) {
             chip(title: "Today", value: "\(vm.sessionsTodayMinutes)m")
@@ -141,7 +156,7 @@ private struct DashboardPage: View {
         return h > 0 ? "\(h)h \(m)m" : "\(m)m"
     }
 
-    // MARK: - UI: Action Grid (session buttons + logs/progress)
+    // MARK: - UI: Action Grid (session buttons)
     private var actionGrid: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
 
@@ -150,7 +165,7 @@ private struct DashboardPage: View {
                 pendingMode = .treadmill
                 showLauncher = true
             } label: {
-                ActionCard(title: "Treadmill", icon: "figsure.run")
+                ActionCard(title: "Treadmill", icon: "figure.run")
             }
 
             // Regular (Free Study)
@@ -176,20 +191,6 @@ private struct DashboardPage: View {
             } label: {
                 ActionCard(title: "Quiz", icon: "questionmark.circle")
             }
-
-//            // Session Logs (assumes you have this screen; if it’s named differently, change here)
-//            NavigationLink {
-//                SessionsLogView()
-//            } label: {
-//                ActionCard(title: "Session Logs", icon: "clock.arrow.circlepath")
-//            }
-//
-//            // Progress (assumes you have this screen; if it’s named differently, change here)
-//            NavigationLink {
-//                ProgressViewScreen()
-//            } label: {
-//                ActionCard(title: "Progress", icon: "chart.bar")
-//            }
         }
     }
 }

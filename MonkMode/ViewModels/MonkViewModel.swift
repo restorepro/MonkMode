@@ -172,6 +172,8 @@ final class MonkViewModel: ObservableObject {
                 for (index, v) in variants.enumerated() {
                     var variantCard = makeVariantCard(from: card, variant: v)
                     variantCard.flowMeta = .lateral(current: index + 1, total: total)
+                    print("   🔗 Variant card created → type=\(v.type), flowMeta=lateral(\(index+1)/\(total))")
+
                     expanded.append(variantCard)
                     print("   ➕ Added variant [\(v.type)] (\(index+1)/\(total)) for card: \(card.question)")
                 }
@@ -183,15 +185,19 @@ final class MonkViewModel: ObservableObject {
     }
 
     private static func makeVariantCard(from card: Flashcard, variant: FlashcardVariant) -> Flashcard {
-        print("🎭 makeVariantCard(): \(variant.type) for base=\(card.question)")
-        return Flashcard(
+        var f = Flashcard(
             id: UUID(),
             question: variant.prompt,
             answer: variant.answer,
             course: card.course,
             chapter: card.chapter
         )
+        f.variantType = variant.type   // ✅ capture the type here
+        f.choices = variant.choices
+
+        return f
     }
+
 }
 
 // MARK: - Session analytics

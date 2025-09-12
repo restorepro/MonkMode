@@ -17,6 +17,9 @@ final class SessionManagerVM: ObservableObject {
     @Published var isRunning: Bool = false
     @Published var score: Int = 0
     @Published var startTime: Date = Date()
+    @Published var course: String
+    @Published var chapter: String
+
 
     // MARK: - Hooks to reuse your existing app pieces
     var onLog: ((StudyMode, [Flashcard], TimeInterval, Int?) -> Void)?  // inject your existing logger
@@ -27,12 +30,18 @@ final class SessionManagerVM: ObservableObject {
     // MARK: - Init
     init(mode: StudyMode,
          cards: [Flashcard],
+         course: String = "",
+         chapter: String = "",
          onLog: ((StudyMode, [Flashcard], TimeInterval, Int?) -> Void)? = nil)
     {
         self.mode = mode
         self.cards = cards
+        self.course = course
+        self.chapter = chapter
         self.onLog = onLog
     }
+
+
 
     // MARK: - Controls
     func start() {

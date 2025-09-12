@@ -31,14 +31,27 @@ struct SessionManagerView: View {
             Divider()
 
             // Mode-specific content
+            // Mode-specific content
             Group {
                 switch vm.mode {
-                case .treadmill: TreadmillSessionView(vm: vm)
-                case .reading:   ReadingSessionView(vm: vm)
-                case .quiz:      QuizSessionView(vm: vm)
-                case .free:      FreeStudyView(vm: vm)
+                case .treadmill:
+                    // 🚀 Use MonkView so JSON + lateral clusters show
+                    MonkView(vm: MonkViewModel(
+                        cards: vm.cards,
+                        course: "SessionCourse",   // can pass vm.course if you add that
+                        chapter: "SessionChapter", // same here
+                        useTestData: true,
+                        useLateralClustering: true
+                    ))
+                case .reading:
+                    ReadingSessionView(vm: vm)
+                case .quiz:
+                    QuizSessionView(vm: vm)
+                case .free:
+                    FreeStudyView(vm: vm)
                 }
             }
+
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .onAppear { vm.start() }
