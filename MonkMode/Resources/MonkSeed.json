@@ -1,87 +1,160 @@
 [
   {
-    "id": "11111111-1111-1111-1111-111111111111",
-    "question": "What is a synapse?",
-    "answer": "A junction between neurons.",
-    "course": "Neuroscience 101",
-    "chapter": "Module 2",
+    "id": "10000000-0000-0000-0000-000000000001",
+    "question": "Which psychologist is associated with functionalism?",
+    "answer": "William James.",
+    "course": "Psychology 101",
+    "chapter": "Ch 1",
     "variants": [
       {
         "type": "reverse",
-        "prompt": "The junction between neurons is called what?",
-        "answer": "Synapse"
+        "prompt": "Functionalism in psychology is most associated with which psychologist?",
+        "answer": "William James"
       },
       {
         "type": "multipleChoice",
-        "prompt": "Which of these describes a synapse?",
-        "answer": "Junction between neurons"
+        "prompt": "Who is linked with functionalism?",
+        "choices": ["William James", "Sigmund Freud", "Wilhelm Wundt", "Carl Rogers"],
+        "answer": "William James"
       }
-    ]
+    ],
+    "flowMeta": { "vertical": {} }
   },
   {
-    "id": "22222222-2222-2222-2222-222222222222",
-    "question": "What is an action potential?",
-    "answer": "A rapid electrical signal in a neuron.",
-    "course": "Neuroscience 101",
-    "chapter": "Module 2",
+    "id": "10000000-0000-0000-0000-000000000002",
+    "question": "What does the term 'psyche' mean in Greek?",
+    "answer": "Soul or mind.",
+    "course": "Psychology 101",
+    "chapter": "Ch 1",
     "variants": [
       {
         "type": "fillInBlank",
-        "prompt": "An action _______ is a rapid electrical signal in a neuron.",
-        "answer": "potential"
+        "prompt": "In Greek, the term 'psyche' means ____ or mind.",
+        "answer": "Soul"
       }
-    ]
+    ],
+    "flowMeta": { "vertical": {} }
   },
   {
-    "id": "33333333-3333-3333-3333-333333333333",
-    "question": "What is myelin?",
-    "answer": "A fatty sheath around axons that speeds conduction.",
-    "course": "Neuroscience 101",
-    "chapter": "Module 2",
+    "id": "10000000-0000-0000-0000-000000000003",
+    "question": "What was the significance of Wundt’s lab?",
+    "answer": "It marked the shift of psychology into a scientific discipline focused on conscious experience.",
+    "course": "Psychology 101",
+    "chapter": "Ch 1",
     "variants": [
       {
         "type": "reverse",
-        "prompt": "The fatty sheath around axons that speeds conduction is called what?",
-        "answer": "Myelin"
+        "prompt": "Which lab marked the transition of psychology into a scientific discipline focused on conscious experience?",
+        "answer": "Wundt’s lab"
       }
-    ]
+    ],
+    "flowMeta": { "vertical": {} }
   },
   {
-    "id": "44444444-4444-4444-4444-444444444444",
-    "question": "What are neurotransmitters?",
-    "answer": "Chemical messengers that transmit signals across synapses.",
-    "course": "Neuroscience 101",
-    "chapter": "Module 2",
+    "id": "10000000-0000-0000-0000-000000000004",
+    "question": "Define psychoanalysis.",
+    "answer": "Sigmund Freud’s method that emphasizes unconscious motivations and early childhood experience.",
+    "course": "Psychology 101",
+    "chapter": "Ch 1",
     "variants": [
       {
         "type": "multipleChoice",
-        "prompt": "Which of these best defines neurotransmitters?",
-        "answer": "Chemical messengers that transmit signals across synapses"
-      },
+        "prompt": "Which approach emphasizes unconscious motivations and childhood experiences?",
+        "choices": ["Psychoanalysis", "Behaviorism", "Humanistic psychology", "Cognitive psychology"],
+        "answer": "Psychoanalysis"
+      }
+    ],
+    "flowMeta": { "vertical": {} }
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000005",
+    "question": "What is humanistic psychology?",
+    "answer": "An approach focused on individual potential and personal growth (e.g. Rogers, Maslow).",
+    "course": "Psychology 101",
+    "chapter": "Ch 1",
+    "variants": [
+      {
+        "type": "reverse",
+        "prompt": "The approach that emphasizes individual potential and personal growth is called what?",
+        "answer": "Humanistic psychology"
+      }
+    ],
+    "flowMeta": { "vertical": {} }
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000006",
+    "question": "What does ‘empiricism’ mean in psychology?",
+    "answer": "The belief that knowledge arises from observation and experimentation.",
+    "course": "Psychology 101",
+    "chapter": "Ch 1",
+    "variants": [
       {
         "type": "fillInBlank",
-        "prompt": "________ are chemical messengers that transmit signals across synapses.",
-        "answer": "Neurotransmitters"
+        "prompt": "In psychology, empiricism is the belief that knowledge arises from ______ and experimentation.",
+        "answer": "observation"
       }
-    ]
+    ],
+    "flowMeta": { "vertical": {} }
   },
   {
-    "id": "55555555-5555-5555-5555-555555555555",
-    "question": "What is plasticity in the brain?",
-    "answer": "The brain's ability to change and adapt with experience.",
-    "course": "Neuroscience 101",
-    "chapter": "Module 2",
+    "id": "10000000-0000-0000-0000-000000000007",
+    "question": "Define theoretical diversity.",
+    "answer": "Psychology includes a wide range of perspectives (behavioral, cognitive, biological, etc.).",
+    "course": "Psychology 101",
+    "chapter": "Ch 1",
+    "variants": [
+      {
+        "type": "multipleChoice",
+        "prompt": "Which concept explains psychology’s use of behavioral, cognitive, and biological perspectives?",
+        "choices": ["Theoretical diversity", "Empiricism", "Sociohistorical context", "Functionalism"],
+        "answer": "Theoretical diversity"
+      }
+    ],
+    "flowMeta": { "lateral": { "current": 1, "total": 2 } }
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000008",
+    "question": "What is the sociohistorical context theme?",
+    "answer": "The idea that psychology reflects the values, issues, and interests of the time in which it's studied.",
+    "course": "Psychology 101",
+    "chapter": "Ch 1",
     "variants": [
       {
         "type": "reverse",
-        "prompt": "The brain's ability to change and adapt with experience is called what?",
-        "answer": "Plasticity"
-      },
-      {
-        "type": "multipleChoice",
-        "prompt": "Which describes brain plasticity?",
-        "answer": "The brain's ability to change and adapt with experience"
+        "prompt": "Which theme states psychology reflects the values and issues of its historical time?",
+        "answer": "Sociohistorical context"
       }
-    ]
+    ],
+    "flowMeta": { "lateral": { "current": 2, "total": 2 } }
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000009",
+    "question": "What is an independent variable in an experiment?",
+    "answer": "It is the factor that researchers manipulate to observe its effect on the dependent variable.",
+    "course": "Psychology 101",
+    "chapter": "Ch 2",
+    "variants": [
+      {
+        "type": "fillInBlank",
+        "prompt": "In experiments, the ______ variable is manipulated to observe its effect.",
+        "answer": "independent"
+      }
+    ],
+    "flowMeta": { "vertical": {} }
+  },
+  {
+    "id": "10000000-0000-0000-0000-000000000010",
+    "question": "What is the dependent variable in an experiment?",
+    "answer": "The outcome measure that researchers observe to see how it changes in response to the independent variable.",
+    "course": "Psychology 101",
+    "chapter": "Ch 2",
+    "variants": [
+      {
+        "type": "reverse",
+        "prompt": "The variable that changes in response to manipulation is called what?",
+        "answer": "Dependent variable"
+      }
+    ],
+    "flowMeta": { "vertical": {} }
   }
 ]

@@ -8,12 +8,11 @@
 import Foundation
 
 struct StudySession: Identifiable, Codable {
-    let id: UUID
-    let date: Date
-    let mode: String
-    let course: String?
-    let chapter: String?
-    let duration: TimeInterval
-    let score: Int?
-    let missed: Int?
+    var id = UUID()
+    var mode: StudyMode
+    var course: String
+    var chapter: String
+    var duration: TimeInterval   // in seconds
+    var score: Int?
+    var date: Date
 }

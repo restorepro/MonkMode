@@ -29,8 +29,6 @@ struct Flashcard: Identifiable, Codable, Equatable {
     var variants: [FlashcardVariant]?
     // 🆕 for subtle labels
        var flowMeta: FlowMeta? = nil
-    // NEW
-        var createdAt: Date = Date() // ✅ creation date for metrics
 
 }
 
@@ -38,6 +36,8 @@ struct FlashcardVariant: Codable, Equatable {
     var type: VariantType
     var prompt: String
     var answer: String
+    var choices: [String]?   // ✅ optional, only used for multipleChoice
+
 }
 
 enum VariantType: String, Codable {

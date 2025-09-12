@@ -16,6 +16,14 @@
 		894E66A62E744C2300B8C36A /* SuperFlow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 894E66A52E744C2300B8C36A /* SuperFlow.mp3 */; };
 		894E66A82E744C6600B8C36A /* lofi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 894E66A72E744C6600B8C36A /* lofi.mp3 */; };
 		894E66AA2E744C7E00B8C36A /* lofi2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 894E66A92E744C7E00B8C36A /* lofi2.mp3 */; };
+		894E66AC2E74838600B8C36A /* HubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66AB2E74838600B8C36A /* HubView.swift */; };
+		894E66AE2E74842400B8C36A /* SessionManagerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66AD2E74842400B8C36A /* SessionManagerVM.swift */; };
+		894E66B02E7486C900B8C36A /* StudyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66AF2E7486C900B8C36A /* StudyMode.swift */; };
+		894E66B22E74871800B8C36A /* SessionManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66B12E74871800B8C36A /* SessionManagerView.swift */; };
+		894E66B52E74877200B8C36A /* TreadmillSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66B42E74877200B8C36A /* TreadmillSessionView.swift */; };
+		894E66B72E74879E00B8C36A /* ReadingSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66B62E74879E00B8C36A /* ReadingSessionView.swift */; };
+		894E66B92E7487BC00B8C36A /* QuizSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66B82E7487BC00B8C36A /* QuizSessionView.swift */; };
+		894E66BB2E7487DE00B8C36A /* FreeStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894E66BA2E7487DE00B8C36A /* FreeStudyView.swift */; };
 		897DF6362E7392FD00E98004 /* MonkModeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6352E7392FD00E98004 /* MonkModeApp.swift */; };
 		897DF6382E7392FD00E98004 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6372E7392FD00E98004 /* ContentView.swift */; };
 		897DF63A2E73930100E98004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 897DF6392E73930100E98004 /* Assets.xcassets */; };
@@ -61,6 +69,14 @@
 		894E66A52E744C2300B8C36A /* SuperFlow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SuperFlow.mp3; sourceTree = "<group>"; };
 		894E66A72E744C6600B8C36A /* lofi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lofi.mp3; sourceTree = "<group>"; };
 		894E66A92E744C7E00B8C36A /* lofi2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lofi2.mp3; sourceTree = "<group>"; };
+		894E66AB2E74838600B8C36A /* HubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubView.swift; sourceTree = "<group>"; };
+		894E66AD2E74842400B8C36A /* SessionManagerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerVM.swift; sourceTree = "<group>"; };
+		894E66AF2E7486C900B8C36A /* StudyMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyMode.swift; sourceTree = "<group>"; };
+		894E66B12E74871800B8C36A /* SessionManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerView.swift; sourceTree = "<group>"; };
+		894E66B42E74877200B8C36A /* TreadmillSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreadmillSessionView.swift; sourceTree = "<group>"; };
+		894E66B62E74879E00B8C36A /* ReadingSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingSessionView.swift; sourceTree = "<group>"; };
+		894E66B82E7487BC00B8C36A /* QuizSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizSessionView.swift; sourceTree = "<group>"; };
+		894E66BA2E7487DE00B8C36A /* FreeStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeStudyView.swift; sourceTree = "<group>"; };
 		897DF6322E7392FD00E98004 /* MonkMode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonkMode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		897DF6352E7392FD00E98004 /* MonkModeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkModeApp.swift; sourceTree = "<group>"; };
 		897DF6372E7392FD00E98004 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -127,6 +143,17 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
+		894E66B32E74875100B8C36A /* Sessions */ = {
+			isa = PBXGroup;
+			children = (
+				894E66B42E74877200B8C36A /* TreadmillSessionView.swift */,
+				894E66B62E74879E00B8C36A /* ReadingSessionView.swift */,
+				894E66B82E7487BC00B8C36A /* QuizSessionView.swift */,
+				894E66BA2E7487DE00B8C36A /* FreeStudyView.swift */,
+			);
+			path = Sessions;
+			sourceTree = "<group>";
+		};
 		897DF6292E7392FD00E98004 = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +206,7 @@
 				897DF6542E7397B300E98004 /* Flashcard.swift */,
 				897DF66B2E739E9900E98004 /* MonkSettings.swift */,
 				894E66952E7434FB00B8C36A /* AppTheme.swift */,
+				894E66AF2E7486C900B8C36A /* StudyMode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -201,6 +229,7 @@
 		897DF6582E7397FA00E98004 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				894E66B32E74875100B8C36A /* Sessions */,
 				897DF6592E73981400E98004 /* MonkView.swift */,
 				897DF65B2E73982700E98004 /* MonkSettingsView.swift */,
 				897DF65D2E73983E00E98004 /* SessionsLogView.swift */,
@@ -210,6 +239,8 @@
 				897DF6752E73B1E900E98004 /* MusicOverlayView.swift */,
 				897DF6772E73B1FE00E98004 /* TimerOverlayView.swift */,
 				894E66A02E7435DF00B8C36A /* SettingsView.swift */,
+				894E66AB2E74838600B8C36A /* HubView.swift */,
+				894E66B12E74871800B8C36A /* SessionManagerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -235,6 +266,7 @@
 				897DF6672E739A9900E98004 /* ReaderViewModel.swift */,
 				897DF6832E73BAC700E98004 /* SpeechReaderViewModel.swift */,
 				894E66972E74352500B8C36A /* ThemeManager.swift */,
+				894E66AD2E74842400B8C36A /* SessionManagerVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -318,6 +350,8 @@
 				897DF65E2E73983E00E98004 /* SessionsLogView.swift in Sources */,
 				897DF6842E73BAC700E98004 /* SpeechReaderViewModel.swift in Sources */,
 				897DF6702E73ABB900E98004 /* ActionCard.swift in Sources */,
+				894E66AE2E74842400B8C36A /* SessionManagerVM.swift in Sources */,
+				894E66AC2E74838600B8C36A /* HubView.swift in Sources */,
 				894E669A2E74354600B8C36A /* AppColors.swift in Sources */,
 				897DF6572E7397D400E98004 /* FlashcardService.swift in Sources */,
 				894E66A12E7435DF00B8C36A /* SettingsView.swift in Sources */,
@@ -327,7 +361,9 @@
 				897DF6682E739A9900E98004 /* ReaderViewModel.swift in Sources */,
 				897DF6782E73B1FE00E98004 /* TimerOverlayView.swift in Sources */,
 				897DF6802E73B97E00E98004 /* TTSService.swift in Sources */,
+				894E66B52E74877200B8C36A /* TreadmillSessionView.swift in Sources */,
 				897DF67E2E73B96400E98004 /* AudioService.swift in Sources */,
+				894E66B22E74871800B8C36A /* SessionManagerView.swift in Sources */,
 				897DF6362E7392FD00E98004 /* MonkModeApp.swift in Sources */,
 				897DF6532E7395B500E98004 /* TokenStore.swift in Sources */,
 				897DF65C2E73982700E98004 /* MonkSettingsView.swift in Sources */,
@@ -335,16 +371,20 @@
 				897DF6662E739A8800E98004 /* FlashcardViewModel.swift in Sources */,
 				897DF66C2E739E9900E98004 /* MonkSettings.swift in Sources */,
 				897DF64F2E73952000E98004 /* SessionService.swift in Sources */,
+				894E66BB2E7487DE00B8C36A /* FreeStudyView.swift in Sources */,
 				894E66982E74352500B8C36A /* ThemeManager.swift in Sources */,
 				894E669F2E7435BE00B8C36A /* View.swift in Sources */,
 				897DF65A2E73981400E98004 /* MonkView.swift in Sources */,
 				897DF6722E73B11100E98004 /* AppRootView.swift in Sources */,
+				894E66B72E74879E00B8C36A /* ReadingSessionView.swift in Sources */,
 				897DF66E2E73AA9700E98004 /* HomeView.swift in Sources */,
 				897DF64D2E7394EE00E98004 /* ReaderService.swift in Sources */,
 				897DF6492E7394AD00E98004 /* StudySession.swift in Sources */,
 				897DF6822E73B9D400E98004 /* SessionTimerViewModel.swift in Sources */,
 				897DF6552E7397B300E98004 /* Flashcard.swift in Sources */,
+				894E66B92E7487BC00B8C36A /* QuizSessionView.swift in Sources */,
 				897DF6512E73954200E98004 /* AIService.swift in Sources */,
+				894E66B02E7486C900B8C36A /* StudyMode.swift in Sources */,
 				897DF64B2E7394CF00E98004 /* FileService.swift in Sources */,
 				897DF6742E73B1C900E98004 /* FloatingHubButton.swift in Sources */,
 				897DF6472E73948B00E98004 /* ReaderChapter.swift in Sources */,
