@@ -16,6 +16,7 @@ struct LogEntry: Identifiable, Hashable {
 struct UtilityTestView: View {
     @EnvironmentObject var vm: MonkViewModel
     @ObservedObject private var audio = AudioService.shared
+    @StateObject private var speechVM = SpeechReaderViewModel()   // 🔹 for screen reader
 
     @State private var log: [LogEntry] = []
     @State private var tracks: [String] = []
@@ -25,7 +26,7 @@ struct UtilityTestView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 Form {
-                    // 1. Session Save Test
+                    // 1️⃣ Session Save Test
                     Section("1️⃣ Session Save Test") {
                         Button("Simulate Save Session") {
                             let session = StudySession(
@@ -42,7 +43,7 @@ struct UtilityTestView: View {
                         }
                     }
 
-                    // 2. Add Flashcard Test
+                    // 2️⃣ Add Flashcard Test
                     Section("2️⃣ Add Flashcard Test") {
                         Button("Add Sample Card") {
                             let card = Flashcard(
@@ -61,7 +62,7 @@ struct UtilityTestView: View {
                         }
                     }
 
-                    // 3. Bulk JSON Import
+                    // 3️⃣ Bulk JSON Import
                     Section("3️⃣ Bulk JSON Test") {
                         Button("Import Dummy Bulk JSON") {
                             let json = """
@@ -75,7 +76,7 @@ struct UtilityTestView: View {
                         }
                     }
 
-                    // 4. AI Stub
+                    // 4️⃣ AI Service Stub
                     Section("4️⃣ AI Service Test") {
                         Button("Stubbed AI Call") {
                             let fakeJSON = "[{\"question\":\"Neuron function?\",\"answer\":\"Transmit signals\"}]"
@@ -84,7 +85,7 @@ struct UtilityTestView: View {
                         }
                     }
 
-                    // 5. Audio Controls
+                    // 5️⃣ Audio Controls
                     Section("5️⃣ Audio Test") {
                         HStack {
                             Button(action: {
@@ -113,7 +114,8 @@ struct UtilityTestView: View {
                         }
                     }
 
-                    Section("Tracks") {
+                    // 5️⃣b Track Picker
+                    Section("5️⃣b Track Picker") {
                         if tracks.isEmpty {
                             Text("No MP3 files found in bundle")
                                 .foregroundColor(.secondary)
@@ -132,11 +134,40 @@ struct UtilityTestView: View {
                         }
                     }
 
-                    Section("Volume") {
+                    // 5️⃣c Volume Slider
+                    Section("5️⃣c Volume") {
                         Slider(value: Binding(
                             get: { Double(audio.volume) },
                             set: { audio.volume = Float($0) }
                         ), in: 0...1)
+                    }
+
+                    // 6️⃣ Screen Reader Test
+                    Section("6️⃣ Screen Reader") {
+                        Toggle("Paragraph Mode", isOn: $speechVM.paragraphMode)
+
+                        ScrollViewReader { proxy in
+                            ScrollView {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    sentenceList   // ⬅️ extracted for compiler performance
+                                }
+                                .padding(.vertical, 6)
+                            }
+                            .onChange(of: speechVM.currentSentenceIndex) { newIndex in
+                                if let idx = newIndex {
+                                    withAnimation {
+                                        proxy.scrollTo(idx, anchor: .center)
+                                    }
+                                }
+                            }
+                        }
+
+                        HStack {
+                            Button("Play") { speechVM.start() }
+                            Button("Pause") { speechVM.pause() }
+                            Button("Resume") { speechVM.resume() }
+                            Button("Stop") { speechVM.stop() }
+                        }
                     }
                 }
 
@@ -163,6 +194,7 @@ struct UtilityTestView: View {
                 }
             }
             .onAppear {
+                // 🔊 Audio setup
                 AudioService.shared.configureSession()
                 let list = audio.availableTracks()
                 self.tracks = list
@@ -172,11 +204,35 @@ struct UtilityTestView: View {
                 } else if let first = list.first {
                     self.selectedTrack = first
                 }
-            }
 
+                // 📝 Load sample text into speech reader
+                let sample = """
+                **The Nervous System**
+                The nervous system is the body’s communication network. It gathers information, processes it, and responds through electrical and chemical signals.
+
+                **Neurons**
+                Neurons are the building blocks of this system. They transmit signals rapidly across the body, enabling thought, sensation, and movement.
+                """
+                speechVM.load(text: sample)
+            }
         }
     }
 
+    // MARK: - Sentence List Extracted
+    private var sentenceList: some View {
+        let items = Array(speechVM.sentences.enumerated())
+        return ForEach(items, id: \.offset) { idx, sentence in
+            let isCurrent = (speechVM.currentSentenceIndex == idx)
+            Text(.init(sentence)) // allows **bold**
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(4)
+                .background(isCurrent ? Color.blue.opacity(0.2).cornerRadius(6) : nil)
+                .foregroundColor(isCurrent ? .blue : .primary)
+                .id(idx)
+        }
+    }
+
+    // MARK: - Helpers
     private func appendLog(_ entry: String) {
         let ts = DateFormatter.localizedString(from: Date(), dateStyle: .none, timeStyle: .medium)
         log.append(LogEntry(text: "[\(ts)] \(entry)"))
@@ -190,6 +246,7 @@ struct UtilityTestView: View {
     }
 }
 
+// MARK: - JSON Encoder Extension
 extension JSONEncoder {
     static var prettyPrinted: JSONEncoder {
         let enc = JSONEncoder()
