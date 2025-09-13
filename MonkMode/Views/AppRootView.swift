@@ -13,6 +13,7 @@ struct AppRootView: View {
     @EnvironmentObject var themeManager: ThemeManager   // ✅ keep your theme manager
     @State private var showMusicOverlay = false
     @State private var showTimerOverlay = false
+    @State private var showUtilityTest = false   // ✅ NEW state for test sheet
 
     // ⬇️ Keep selections here so they persist across sheets
     @State private var selectedCourse: String = ""
@@ -20,20 +21,25 @@ struct AppRootView: View {
     @State private var selectedCards: [Flashcard] = []
 
     var body: some View {
-        NavigationStack {
-            // Dashboard replaces HomeView
-            DashboardPage(
-                selectedCourse: $selectedCourse,
-                selectedChapter: $selectedChapter,
-                selectedCards: $selectedCards
-            )
-            .environmentObject(vm)
-            .environmentObject(themeManager)   // ✅ pass down
-            .overlay(floatingButtons, alignment: .bottomTrailing)
-            .onAppear {
-                AudioService.shared.configureSession()
+        ZStack {
+            NavigationStack {
+                // Dashboard replaces HomeView
+                DashboardPage(
+                    selectedCourse: $selectedCourse,
+                    selectedChapter: $selectedChapter,
+                    selectedCards: $selectedCards
+                )
+                .environmentObject(vm)
+                .environmentObject(themeManager)   // ✅ pass down
+                .onAppear {
+                    AudioService.shared.configureSession()
+                }
+                .navigationTitle("MonkMode")
             }
-            .navigationTitle("MonkMode")
+            .appBackground(theme: themeManager)        // ✅ apply global background
+
+            // ✅ Floating buttons live OUTSIDE the nav stack so they persist
+            floatingButtons
         }
         .sheet(isPresented: $showMusicOverlay) {
             MusicOverlayView()
@@ -43,7 +49,11 @@ struct AppRootView: View {
             TimerOverlayView(vm: vm)
                 .environmentObject(themeManager)   // ✅ pass down
         }
-        .appBackground(theme: themeManager)        // ✅ apply global background
+        // ✅ NEW: Utility Test Page sheet
+        .sheet(isPresented: $showUtilityTest) {
+            UtilityTestView()
+                .environmentObject(vm)
+        }
     }
 
     // MARK: - Floating buttons (with animation)
@@ -67,8 +77,14 @@ struct AppRootView: View {
             FloatingHubButton(icon: "timer") {
                 showTimerOverlay = true
             }
+
+            // 🛠 Dev Utility Test button
+            FloatingHubButton(icon: "wrench.and.screwdriver") {
+                showUtilityTest = true
+            }
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
     }
 }
 
@@ -123,7 +139,6 @@ private struct DashboardPage: View {
         // 2) Launch session in another sheet
         .sheet(isPresented: $showSession) {
             if let mode = pendingMode {
-//                print("🚀 Launching SessionManagerView → mode=\(mode.rawValue), cards=\(selectedCards.count), course=\(selectedCourse), chapter=\(selectedChapter)")
                 SessionManagerView(
                     vm: SessionManagerVM(
                         mode: mode,

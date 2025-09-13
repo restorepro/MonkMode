@@ -53,7 +53,7 @@ final class MonkViewModel: ObservableObject {
         }
 
         print("📊 MonkViewModel initialized with \(self.cards.count) cards")
-        startTimer()
+       // startTimer()
     }
 
     func startTimer() {

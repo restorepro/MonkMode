@@ -57,6 +57,7 @@
 		897DF6802E73B97E00E98004 /* TTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF67F2E73B97E00E98004 /* TTSService.swift */; };
 		897DF6822E73B9D400E98004 /* SessionTimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6812E73B9D400E98004 /* SessionTimerViewModel.swift */; };
 		897DF6842E73BAC700E98004 /* SpeechReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6832E73BAC700E98004 /* SpeechReaderViewModel.swift */; };
+		89E0040A2E75E12700E3787F /* UtilityTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E004092E75E12700E3787F /* UtilityTestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +113,7 @@
 		897DF67F2E73B97E00E98004 /* TTSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSService.swift; sourceTree = "<group>"; };
 		897DF6812E73B9D400E98004 /* SessionTimerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTimerViewModel.swift; sourceTree = "<group>"; };
 		897DF6832E73BAC700E98004 /* SpeechReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechReaderViewModel.swift; sourceTree = "<group>"; };
+		89E004092E75E12700E3787F /* UtilityTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityTestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 				894E66A02E7435DF00B8C36A /* SettingsView.swift */,
 				894E66AB2E74838600B8C36A /* HubView.swift */,
 				894E66B12E74871800B8C36A /* SessionManagerView.swift */,
+				89E004092E75E12700E3787F /* UtilityTestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				894E66AE2E74842400B8C36A /* SessionManagerVM.swift in Sources */,
 				894E66AC2E74838600B8C36A /* HubView.swift in Sources */,
 				894E669A2E74354600B8C36A /* AppColors.swift in Sources */,
+				89E0040A2E75E12700E3787F /* UtilityTestView.swift in Sources */,
 				897DF6572E7397D400E98004 /* FlashcardService.swift in Sources */,
 				894E66A12E7435DF00B8C36A /* SettingsView.swift in Sources */,
 				894E66962E7434FB00B8C36A /* AppTheme.swift in Sources */,
