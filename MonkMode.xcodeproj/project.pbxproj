@@ -31,7 +31,6 @@
 		897DF6472E73948B00E98004 /* ReaderChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6462E73948B00E98004 /* ReaderChapter.swift */; };
 		897DF6492E7394AD00E98004 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6482E7394AD00E98004 /* StudySession.swift */; };
 		897DF64B2E7394CF00E98004 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF64A2E7394CF00E98004 /* FileService.swift */; };
-		897DF64D2E7394EE00E98004 /* ReaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF64C2E7394EE00E98004 /* ReaderService.swift */; };
 		897DF64F2E73952000E98004 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF64E2E73952000E98004 /* SessionService.swift */; };
 		897DF6512E73954200E98004 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6502E73954200E98004 /* AIService.swift */; };
 		897DF6532E7395B500E98004 /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6522E7395B500E98004 /* TokenStore.swift */; };
@@ -86,7 +85,6 @@
 		897DF6462E73948B00E98004 /* ReaderChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderChapter.swift; sourceTree = "<group>"; };
 		897DF6482E7394AD00E98004 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
 		897DF64A2E7394CF00E98004 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
-		897DF64C2E7394EE00E98004 /* ReaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderService.swift; sourceTree = "<group>"; };
 		897DF64E2E73952000E98004 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		897DF6502E73954200E98004 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 		897DF6522E7395B500E98004 /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
@@ -217,7 +215,6 @@
 				897DF67F2E73B97E00E98004 /* TTSService.swift */,
 				897DF67D2E73B96400E98004 /* AudioService.swift */,
 				897DF64A2E7394CF00E98004 /* FileService.swift */,
-				897DF64C2E7394EE00E98004 /* ReaderService.swift */,
 				897DF64E2E73952000E98004 /* SessionService.swift */,
 				897DF6502E73954200E98004 /* AIService.swift */,
 				897DF6522E7395B500E98004 /* TokenStore.swift */,
@@ -378,7 +375,6 @@
 				897DF6722E73B11100E98004 /* AppRootView.swift in Sources */,
 				894E66B72E74879E00B8C36A /* ReadingSessionView.swift in Sources */,
 				897DF66E2E73AA9700E98004 /* HomeView.swift in Sources */,
-				897DF64D2E7394EE00E98004 /* ReaderService.swift in Sources */,
 				897DF6492E7394AD00E98004 /* StudySession.swift in Sources */,
 				897DF6822E73B9D400E98004 /* SessionTimerViewModel.swift in Sources */,
 				897DF6552E7397B300E98004 /* Flashcard.swift in Sources */,
