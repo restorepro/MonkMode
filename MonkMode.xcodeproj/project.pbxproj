@@ -55,6 +55,7 @@
 		897DF6802E73B97E00E98004 /* TTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF67F2E73B97E00E98004 /* TTSService.swift */; };
 		897DF6822E73B9D400E98004 /* SessionTimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6812E73B9D400E98004 /* SessionTimerViewModel.swift */; };
 		897DF6842E73BAC700E98004 /* SpeechReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897DF6832E73BAC700E98004 /* SpeechReaderViewModel.swift */; };
+		89D416422E76EBCE00A50E39 /* SpeechReaderVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D416412E76EBCE00A50E39 /* SpeechReaderVM.swift */; };
 		89E0040A2E75E12700E3787F /* UtilityTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E004092E75E12700E3787F /* UtilityTestView.swift */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +110,7 @@
 		897DF67F2E73B97E00E98004 /* TTSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSService.swift; sourceTree = "<group>"; };
 		897DF6812E73B9D400E98004 /* SessionTimerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTimerViewModel.swift; sourceTree = "<group>"; };
 		897DF6832E73BAC700E98004 /* SpeechReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechReaderViewModel.swift; sourceTree = "<group>"; };
+		89D416412E76EBCE00A50E39 /* SpeechReaderVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechReaderVM.swift; sourceTree = "<group>"; };
 		89E004092E75E12700E3787F /* UtilityTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityTestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -264,6 +266,7 @@
 				897DF6832E73BAC700E98004 /* SpeechReaderViewModel.swift */,
 				894E66972E74352500B8C36A /* ThemeManager.swift */,
 				894E66AD2E74842400B8C36A /* SessionManagerVM.swift */,
+				89D416412E76EBCE00A50E39 /* SpeechReaderVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				897DF6532E7395B500E98004 /* TokenStore.swift in Sources */,
 				897DF65C2E73982700E98004 /* MonkSettingsView.swift in Sources */,
 				894E669C2E74356900B8C36A /* AppGradients.swift in Sources */,
+				89D416422E76EBCE00A50E39 /* SpeechReaderVM.swift in Sources */,
 				897DF6662E739A8800E98004 /* FlashcardViewModel.swift in Sources */,
 				897DF66C2E739E9900E98004 /* MonkSettings.swift in Sources */,
 				897DF64F2E73952000E98004 /* SessionService.swift in Sources */,

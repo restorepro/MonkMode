@@ -1,9 +1,5 @@
-//
 //  SpeechReaderViewModel.swift
-//  MonkMode
-//
-//  Adapted for MonkMode by ChatGPT
-//
+//  MonkMode (adapted from your other project)
 
 import Foundation
 import AVFoundation
@@ -24,7 +20,6 @@ final class SpeechReaderViewModel: NSObject, ObservableObject {
     @Published var fullTextPreview: String = ""
     @Published var selectedVoiceIdentifier: String = "com.apple.ttsbundle.siri_nicky_en-US_compact"
 
-    // Only allow these 4 voices
     let availableVoices: [(name: String, id: String)] = [
         ("Nicky (US)", "com.apple.ttsbundle.siri_nicky_en-US_compact"),
         ("Karen (US)", "com.apple.ttsbundle.siri_karen_en-US_compact"),
@@ -33,9 +28,8 @@ final class SpeechReaderViewModel: NSObject, ObservableObject {
     ]
 
     @Published var paragraphMode: Bool = false
-    @Published var lastHighlightedIndex: Int? = nil
 
-    // MARK: - Settings (speech tuning)
+    // MARK: - Settings
     var voice: AVSpeechSynthesisVoice { validVoice(for: selectedVoiceIdentifier) }
     var rate: Float = 0.35
     var pitchMultiplier: Float = 1.0
@@ -46,23 +40,32 @@ final class SpeechReaderViewModel: NSObject, ObservableObject {
     var pauseBase: TimeInterval = 1.0
     var pausePerWord: TimeInterval = 0.06
     var pauseMin: TimeInterval = 1.0
-    var pauseMax: TimeInterval = 4.5
+    var pauseMax: TimeInterval = 4.50
 
-    // MARK: - Internal players/state
+    // MARK: - Internal state
     private let synthesizer = AVSpeechSynthesizer()
     private var sentenceRanges: [NSRange] = []
     var sentenceRangesPublic: [NSRange] { sentenceRanges }
     private var fullText: String = ""
     private var utteranceQueue: [IndexedUtterance] = []
+    private var binauralPlayer: AVAudioPlayer?
+    @Published var lastHighlightedIndex: Int? = nil
 
-    // ======== Session timing & flags ========
+    // ======== Session flags ========
     @Published var sessionStartTime: Date? = nil
     @Published var sessionEndTime: Date? = nil
     @Published var sessionActive: Bool = false
     @Published var hasLoggedThisSession: Bool = false
     @Published var readingCourseForLog: String? = nil
     @Published var readingChapterForLog: String? = nil
-    // ========================================
+
+    // ======== Background music (disabled here) ========
+    @Published var musicEnabled: Bool = false
+    @Published var musicVolume: Float = 0.20
+    @Published var duckMusicDuringSpeech: Bool = false
+    private var preDuckVolume: Float = 0.20
+    private let duckedVolume: Float = 0.07
+    @Published var availableSongs: [String] = []
 
     override init() {
         super.init()
@@ -86,7 +89,10 @@ final class SpeechReaderViewModel: NSObject, ObservableObject {
     }
 
     func validVoice(for identifier: String) -> AVSpeechSynthesisVoice {
-        AVSpeechSynthesisVoice(identifier: identifier) ?? AVSpeechSynthesisVoice(language: "en-US")!
+        if let voice = AVSpeechSynthesisVoice(identifier: identifier) {
+            return voice
+        }
+        return AVSpeechSynthesisVoice(language: "en-US")!
     }
 
     func restartWithNewVoice() {
@@ -140,39 +146,56 @@ final class SpeechReaderViewModel: NSObject, ObservableObject {
         if let last = sentenceRanges.last, range.location >= last.location { return sentences.count - 1 }
         return nil
     }
+    
+
+    func testSpeech() {
+        let synthesizer = AVSpeechSynthesizer()
+        let utterance = AVSpeechUtterance(string: "Hello from Monk Mode. This is a test of the speech system.")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = 0.4
+        synthesizer.speak(utterance)
+        print("🗣 testSpeech() triggered")
+    }
+
 
     // MARK: - Speech controls
     func start() {
+        testSpeech()
+        // prevent double enqueue
+        if synthesizer.isSpeaking || !utteranceQueue.isEmpty {
+            print("⏭ start() ignored — already speaking or queue not empty")
+            return
+        }
+
         if synthesizer.isPaused {
             synthesizer.continueSpeaking()
             DispatchQueue.main.async { self.isSpeaking = true }
             return
         }
-        if synthesizer.isSpeaking { return }
 
         let startIndex = currentSentenceIndex ?? 0
         guard startIndex < sentences.count else { return }
         print("▶️ Starting speech with voice: \(selectedVoiceIdentifier)")
 
+        // build the queue once
         utteranceQueue.removeAll()
         for idx in startIndex..<sentences.count {
             let u = AVSpeechUtterance(string: sentences[idx])
             u.voice = AVSpeechSynthesisVoice(identifier: selectedVoiceIdentifier)
-                ?? AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.siri_nicky_en-US_compact")
+                ?? AVSpeechSynthesisVoice(language: "en-US")
             u.rate = rate
             u.pitchMultiplier = pitchMultiplier
             u.volume = volume
-
-            let wordCount = max(1, sentences[idx].split(whereSeparator: { $0.isWhitespace }).count)
-            let rawPause = pauseBase + (pausePerWord * Double(wordCount))
-            let dynamicPause = min(pauseMax, max(pauseMin, rawPause))
-            u.postUtteranceDelay = dynamicPause
-
+            let wordCount = max(1, sentences[idx].split(whereSeparator: \.isWhitespace).count)
+            let pause = min(pauseMax, max(pauseMin, pauseBase + pausePerWord * Double(wordCount)))
+            u.postUtteranceDelay = pause
             u.accessibilityHint = String(idx)
             utteranceQueue.append(IndexedUtterance(utterance: u, sentenceIndex: idx))
         }
+
         speakNextInQueue()
     }
+
 
     private func speakNextInQueue() {
         guard !utteranceQueue.isEmpty else {
@@ -182,9 +205,9 @@ final class SpeechReaderViewModel: NSObject, ObservableObject {
             }
             return
         }
+
         let next = utteranceQueue.removeFirst()
         synthesizer.speak(next.utterance)
-
         DispatchQueue.main.async {
             self.isSpeaking = true
             if !self.paragraphMode {
@@ -220,20 +243,26 @@ final class SpeechReaderViewModel: NSObject, ObservableObject {
         utteranceQueue.removeAll()
     }
 
-    // MARK: - Session tracking
-    func startSpeechReaderSession(course: String? = nil, chapter: String? = nil) {
-        sessionStartTime = Date()
-        sessionEndTime = nil
-        sessionActive = true
-        hasLoggedThisSession = false
-        readingCourseForLog = course
-        readingChapterForLog = chapter
-    }
+    // Stubbed out references from other project:
+    /*
+    func startBackgroundMusicUsingAudioService(selectedSong: String) { }
+    func stopBackgroundMusicUsingAudioService() { }
+    func setMusicVolume(_ vol: Float) { }
+    func refreshAvailableSongs() { }
+    func startSpeechReaderSession(course: String? = nil, chapter: String? = nil) { }
+    @MainActor func stopSpeechReaderSession(
+        flashcardVM: FlashcardViewModel,
+        courseForLog: String? = nil,
+        chapterForLog: String? = nil,
+        source: String = "unknown"
+    ) -> Bool { return false }
+    */
 }
 
 // MARK: - AVSpeechSynthesizerDelegate
 extension SpeechReaderViewModel: AVSpeechSynthesizerDelegate {
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer,
+                           didFinish utterance: AVSpeechUtterance) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             if self.utteranceQueue.isEmpty {
@@ -248,27 +277,29 @@ extension SpeechReaderViewModel: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer,
                            willSpeakRangeOfSpeechString characterRange: NSRange,
                            utterance: AVSpeechUtterance) {
-        if let hint = utterance.accessibilityHint, let val = Int(hint) {
-            DispatchQueue.main.async {
-                self.currentSentenceIndex = val
-                self.lastHighlightedIndex = val
-            }
-            return
-        }
-        if let idx = sentenceIndexContaining(range: characterRange) {
-            lastHighlightedIndex = idx
+        if let hint = utterance.accessibilityHint, let idx = Int(hint) {
             DispatchQueue.main.async {
                 self.currentSentenceIndex = idx
+                self.lastHighlightedIndex = idx
+            }
+        } else if let idx = sentenceIndexContaining(range: characterRange) {
+            DispatchQueue.main.async {
+                self.currentSentenceIndex = idx
+                self.lastHighlightedIndex = idx
             }
         }
     }
 
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer,
+                           didStart utterance: AVSpeechUtterance) { }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer,
+                           didPause utterance: AVSpeechUtterance) {
         DispatchQueue.main.async { self.isSpeaking = false }
     }
 
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer,
+                           didContinue utterance: AVSpeechUtterance) {
         DispatchQueue.main.async { self.isSpeaking = true }
     }
 }
-

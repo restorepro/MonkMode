@@ -16,7 +16,7 @@ struct LogEntry: Identifiable, Hashable {
 struct UtilityTestView: View {
     @EnvironmentObject var vm: MonkViewModel
     @ObservedObject private var audio = AudioService.shared
-    @StateObject private var speechVM = SpeechReaderViewModel()   // 🔹 for screen reader
+    @StateObject private var readerVM = SpeechReaderVM()   // ✅ use new clean VM only
 
     @State private var log: [LogEntry] = []
     @State private var tracks: [String] = []
@@ -85,8 +85,8 @@ struct UtilityTestView: View {
                         }
                     }
 
-                    // 5️⃣ Audio Controls
-                    Section("5️⃣ Audio Test") {
+                    // 5️⃣a Audio Controls
+                    Section("5️⃣a Audio Controls") {
                         HStack {
                             Button(action: {
                                 if audio.isPlaying {
@@ -144,16 +144,14 @@ struct UtilityTestView: View {
 
                     // 6️⃣ Screen Reader Test
                     Section("6️⃣ Screen Reader") {
-                        Toggle("Paragraph Mode", isOn: $speechVM.paragraphMode)
-
                         ScrollViewReader { proxy in
                             ScrollView {
                                 VStack(alignment: .leading, spacing: 8) {
-                                    sentenceList   // ⬅️ extracted for compiler performance
+                                    sentenceList   // ⬅️ extracted list
                                 }
                                 .padding(.vertical, 6)
                             }
-                            .onChange(of: speechVM.currentSentenceIndex) { newIndex in
+                            .onChange(of: readerVM.currentSentenceIndex) { newIndex in
                                 if let idx = newIndex {
                                     withAnimation {
                                         proxy.scrollTo(idx, anchor: .center)
@@ -162,18 +160,25 @@ struct UtilityTestView: View {
                             }
                         }
 
-                        HStack {
-                            Button("Play") { speechVM.start() }
-                            Button("Pause") { speechVM.pause() }
-                            Button("Resume") { speechVM.resume() }
-                            Button("Stop") { speechVM.stop() }
+                        HStack(spacing: 24) {   // 👈 spacing between buttons
+                            Button("Load Text") {
+                                readerVM.load(text: """
+                                The nervous system is the body’s communication network.
+                                Neurons are the building blocks of this system.
+                                They transmit signals rapidly across the body.
+                                """)
+                            }
+                            Button("Play") { readerVM.start() }
+                            Button("Pause") { readerVM.pause() }
+                            Button("Resume") { readerVM.resume() }
+                            Button("Stop") { readerVM.stop() }
                         }
                     }
                 }
 
                 Divider()
 
-                // Feedback log viewer
+                // 📝 Feedback log viewer
                 ScrollView {
                     VStack(alignment: .leading, spacing: 4) {
                         ForEach(log.reversed()) { entry in
@@ -206,24 +211,23 @@ struct UtilityTestView: View {
                 }
 
                 // 📝 Load sample text into speech reader
-                let sample = """
+                readerVM.load(text: """
                 **The Nervous System**
                 The nervous system is the body’s communication network. It gathers information, processes it, and responds through electrical and chemical signals.
 
                 **Neurons**
                 Neurons are the building blocks of this system. They transmit signals rapidly across the body, enabling thought, sensation, and movement.
-                """
-                speechVM.load(text: sample)
+                """)
             }
         }
     }
 
     // MARK: - Sentence List Extracted
     private var sentenceList: some View {
-        let items = Array(speechVM.sentences.enumerated())
+        let items = Array(readerVM.sentences.enumerated())
         return ForEach(items, id: \.offset) { idx, sentence in
-            let isCurrent = (speechVM.currentSentenceIndex == idx)
-            Text(.init(sentence)) // allows **bold**
+            let isCurrent = (readerVM.currentSentenceIndex == idx)
+            Text(.init(sentence)) // supports **bold** headings
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(4)
                 .background(isCurrent ? Color.blue.opacity(0.2).cornerRadius(6) : nil)
@@ -236,13 +240,6 @@ struct UtilityTestView: View {
     private func appendLog(_ entry: String) {
         let ts = DateFormatter.localizedString(from: Date(), dateStyle: .none, timeStyle: .medium)
         log.append(LogEntry(text: "[\(ts)] \(entry)"))
-    }
-
-    private func formatTime(_ t: TimeInterval) -> String {
-        guard t.isFinite && !t.isNaN else { return "0:00" }
-        let m = Int(t) / 60
-        let s = Int(t) % 60
-        return String(format: "%d:%02d", m, s)
     }
 }
 

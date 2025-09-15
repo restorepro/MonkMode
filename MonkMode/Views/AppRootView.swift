@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import AVFoundation   // ✅ Needed for AVAudioSession
 
 // MARK: - Root App Container
 struct AppRootView: View {
     @EnvironmentObject var vm: MonkViewModel
-    @EnvironmentObject var themeManager: ThemeManager   // ✅ keep your theme manager
+    @EnvironmentObject var themeManager: ThemeManager
     @State private var showMusicOverlay = false
     @State private var showTimerOverlay = false
-    @State private var showUtilityTest = false   // ✅ NEW state for test sheet
+    @State private var showUtilityTest = false
 
     // ⬇️ Keep selections here so they persist across sheets
     @State private var selectedCourse: String = ""
@@ -23,33 +24,31 @@ struct AppRootView: View {
     var body: some View {
         ZStack {
             NavigationStack {
-                // Dashboard replaces HomeView
                 DashboardPage(
                     selectedCourse: $selectedCourse,
                     selectedChapter: $selectedChapter,
                     selectedCards: $selectedCards
                 )
                 .environmentObject(vm)
-                .environmentObject(themeManager)   // ✅ pass down
+                .environmentObject(themeManager)
                 .onAppear {
                     AudioService.shared.configureSession()
+                    configureAudioSession()   // ✅ global helper below
                 }
                 .navigationTitle("MonkMode")
             }
-            .appBackground(theme: themeManager)        // ✅ apply global background
+            .appBackground(theme: themeManager)
 
-            // ✅ Floating buttons live OUTSIDE the nav stack so they persist
             floatingButtons
         }
         .sheet(isPresented: $showMusicOverlay) {
             MusicOverlayView()
-                .environmentObject(themeManager)   // ✅ pass down
+                .environmentObject(themeManager)
         }
         .sheet(isPresented: $showTimerOverlay) {
             TimerOverlayView(vm: vm)
-                .environmentObject(themeManager)   // ✅ pass down
+                .environmentObject(themeManager)
         }
-        // ✅ NEW: Utility Test Page sheet
         .sheet(isPresented: $showUtilityTest) {
             UtilityTestView()
                 .environmentObject(vm)
@@ -85,6 +84,18 @@ struct AppRootView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+    }
+}
+
+// MARK: - Audio Session Config (GLOBAL)
+private func configureAudioSession() {
+    do {
+        let session = AVAudioSession.sharedInstance()
+        try session.setCategory(.playback, options: [.mixWithOthers])
+        try session.setActive(true)
+        print("✅ AudioSession configured for TTS + Music")
+    } catch {
+        print("❌ AudioSession config failed: \(error)")
     }
 }
 
@@ -135,7 +146,6 @@ private struct DashboardPage: View {
                 Text("No mode selected").padding()
             }
         }
-
         // 2) Launch session in another sheet
         .sheet(isPresented: $showSession) {
             if let mode = pendingMode {
@@ -323,7 +333,6 @@ private struct SessionStartSheet: View {
                             print("   ✅ Passing cards to onStart")
                         }
 
-                        // 🔑 Pass cards immediately, but trigger session launch on next runloop tick
                         DispatchQueue.main.async {
                             onStart(selectedCourse, selectedChapter, cards)
                         }
